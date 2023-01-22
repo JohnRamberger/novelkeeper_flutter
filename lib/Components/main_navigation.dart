@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:novelkeeper_flutter/Views/library.view.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -53,7 +54,7 @@ class _MainNavigationState extends State<MainNavigation> {
   _buildBody() {
     switch (_selectedIndex) {
       case 0:
-        return Container();
+        return LibraryView();
       case 1:
         return Container();
       case 2:
