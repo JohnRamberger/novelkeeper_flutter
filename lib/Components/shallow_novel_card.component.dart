@@ -47,5 +47,6 @@ class ShallowNovelCard extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => NovelDetailsView(shallowNovel: novel)));
         });
+    // TODO: add long press action menu
   }
 }
