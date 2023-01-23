@@ -52,7 +52,7 @@ class _NovelfullViewState extends State<NovelfullView> {
         child: GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 0.6,
+        childAspectRatio: 0.5,
       ),
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
