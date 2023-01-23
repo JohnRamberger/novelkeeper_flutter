@@ -13,5 +13,5 @@ abstract class Source {
   /// @param page The page number to get
   /// @param query The query to search for
   /// @return ScrapeJob
-  ScrapeJob searchNovelJob({required int page, required String query});
+  Future<ScrapeJob> searchNovelJob({required int page, required String query});
 }

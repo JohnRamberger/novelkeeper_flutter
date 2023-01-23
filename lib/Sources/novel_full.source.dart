@@ -8,7 +8,11 @@ class NovelFull extends Source {
   }
 
   @override
-  ScrapeJob searchNovelJob({required int page, required String query}) {
+  Future<ScrapeJob> searchNovelJob(
+      {required int page, required String query}) async {
+    String url = "$baseUrl/search?keyword=$query&page=$page";
+
+    ScrapeJob(url: url, callback: (completedJob) {});
     throw UnimplementedError();
   }
 }
