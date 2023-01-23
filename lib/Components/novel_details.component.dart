@@ -8,17 +8,12 @@ import '../Model/novel/chapter.model.dart';
 import '../Model/novel/novel.model.dart';
 
 class NovelDetails extends StatelessWidget {
-  NovelDetails({required this.novel, super.key})
-      : chaptersReversed = novel.chapters;
+  const NovelDetails({required this.novel, super.key});
 
   final Novel novel;
-  final List<Chapter> chaptersReversed;
 
   @override
   Widget build(BuildContext context) {
-    chaptersReversed.sort((a, b) {
-      return b.index - a.index;
-    });
     return Container(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -59,14 +54,6 @@ class NovelDetails extends StatelessWidget {
                 ? Text("genres: ${novel.genres!.join(", ")}")
                 : const SizedBox.shrink(),
             Text("description: ${novel.description}"),
-            ListView.builder(
-              itemCount: chaptersReversed.length,
-              itemBuilder: (context, index) {
-                return ChapterItem(chapter: chaptersReversed[index]);
-              },
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-            )
           ],
         ));
   }
