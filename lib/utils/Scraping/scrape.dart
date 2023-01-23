@@ -2,44 +2,31 @@ import 'package:html/dom.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parse;
 import 'package:novelkeeper_flutter/Config/config.dart';
+import 'package:faker/faker.dart';
+import 'package:novelkeeper_flutter/utils/Scraping/scrape_job.model.dart';
 
-class Scraper {
-  /// a valid sting url
-  // final String url;
-
-  /// The uri to scrape
-  // Uri _uri = Uri();
-
+class ScrapeClient {
   /// The http client
-  final _client = http.Client();
+  var _client = http.Client();
 
   /// a timeout duration
   final Duration timeout;
 
-  /// called when an error occurs. returns the error. Error is already printed.
-  final dynamic Function(Object) onError;
+  String userAgent = faker.internet.userAgent();
 
-  /// called when the scraping is successful. returns the parsed html document.
-  final dynamic Function(Document) onSuccess;
+  ScrapeClient({this.timeout = const Duration(seconds: 5)});
 
-  Scraper(
-      {required this.onError,
-      required this.onSuccess,
-      this.timeout = const Duration(seconds: 5)});
-
-  /// Scrape the url
-  url(String url) {
-    try {
-      _getHtml(Uri.https(url));
-    } catch (err) {
-      _handleError(err);
-    }
+  /// Refresh the client with a new user agent
+  refresh() {
+    _client.close();
+    userAgent = faker.internet.userAgent();
+    _client = http.Client();
   }
 
-  /// Scrape the uri
-  uri(Uri uri) {
+  startJob(ScrapeJob job) {
     try {
-      _getHtml(uri);
+      job.status = ScrapeJobStatus.RUNNING;
+      _getHtml(job.uri);
     } catch (err) {
       _handleError(err);
     }
@@ -66,7 +53,6 @@ class Scraper {
     try {
       // parse the html
       var document = parse.parse(body);
-      onSuccess(document);
     } catch (err) {
       _handleError(err);
     }
@@ -74,6 +60,5 @@ class Scraper {
 
   _handleError(Object err) {
     print(err.toString());
-    onError(err);
   }
 }
