@@ -1,5 +1,5 @@
 import 'package:novelkeeper_flutter/Model/source.model.dart';
-import '../Model/scrape_job.model.dart';
+import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
 
 class NovelFull extends Source {
   NovelFull() {
