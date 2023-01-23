@@ -5,4 +5,9 @@ class SearchResult {
   List<String>? pageUrls;
 
   SearchResult({required this.novels, this.pageUrls});
+
+  @override
+  String toString() {
+    return 'SearchResult(novels: \n$novels, \npageUrls: $pageUrls)';
+  }
 }
