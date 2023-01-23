@@ -130,7 +130,7 @@ class NovelFull extends Source {
       // make a new sourcejob
       var newJob = ScrapeJob(url: "${shallow.sourceUrl}?page=$i");
       await NKConfig.scrapeClient.startJob(newJob);
-      List<Chapter> newChapters = selectorNovelChapters(job, chaptersFound);
+      List<Chapter> newChapters = selectorNovelChapters(newJob, chaptersFound);
       chapterList = chapterList + newChapters;
     }
 
