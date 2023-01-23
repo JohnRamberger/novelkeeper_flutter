@@ -12,23 +12,23 @@ class ScrapeClient {
   /// a timeout duration
   final Duration timeout;
 
-  String userAgent = faker.internet.userAgent();
+  String userAgent = faker.internet.userAgent(osName: 'android');
 
   ScrapeClient({this.timeout = const Duration(seconds: 5)});
 
   /// Refresh the client with a new user agent
   refresh() {
     _client.close();
-    userAgent = faker.internet.userAgent();
+    userAgent = faker.internet.userAgent(osName: 'android');
     _client = http.Client();
   }
 
   startJob(ScrapeJob job) {
     try {
       job.status = ScrapeJobStatus.RUNNING;
-      _getHtml(job.uri);
-    } catch (err) {
-      _handleError(job, err);
+      _getHtml(job);
+    } catch (err, stacktrace) {
+      _handleError(job, err, stacktrace);
     }
   }
 
@@ -36,15 +36,15 @@ class ScrapeClient {
     try {
       // get the html
       final response = await _client.get(job.uri, headers: {
-        "User-Agent": NKConfig.userAgent,
+        "User-Agent": userAgent,
         "Accept": "text/html",
       }).timeout(timeout, onTimeout: () {
         throw Exception("Request timed out");
       });
       // parse the html
       _parseHtml(job, response.body);
-    } catch (err) {
-      _handleError(job, err);
+    } catch (err, stacktrace) {
+      _handleError(job, err, stacktrace);
     }
   }
 
@@ -53,13 +53,14 @@ class ScrapeClient {
     try {
       // parse the html
       job.setSuccess(parse.parse(body));
-    } catch (err) {
-      _handleError(job, err);
+    } catch (err, stacktrace) {
+      _handleError(job, err, stacktrace);
     }
   }
 
-  _handleError(ScrapeJob job, Object err) {
-    print(err.toString());
+  _handleError(ScrapeJob job, Object err, StackTrace stacktrace) {
+    print(err);
+    print(stacktrace);
     job.setError(err);
   }
 }

@@ -13,7 +13,7 @@ class ScrapeJob {
 
   ScrapeJobStatus status = ScrapeJobStatus.PENDING;
 
-  final dynamic Function() callback;
+  final dynamic Function(ScrapeJob) callback;
 
   ScrapeJob({required String url, required this.callback, bool https = true}) {
     _id = const Uuid().v4();
@@ -34,10 +34,12 @@ class ScrapeJob {
   setError(Object err) {
     _error = err;
     status = ScrapeJobStatus.ERROR;
+    callback(this);
   }
 
   setSuccess(Document doc) {
     _document = doc;
     status = ScrapeJobStatus.SUCCESS;
+    callback(this);
   }
 }
