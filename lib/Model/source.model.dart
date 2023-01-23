@@ -24,5 +24,5 @@ abstract class Source {
   SearchResult selectorNovelsFromSearch(ScrapeJob job);
 
   /// selector - Get the novel from html element
-  ShallowNovel selectorNovel(dynamic element);
+  ShallowNovel selectorShallowNovel(dynamic element);
 }

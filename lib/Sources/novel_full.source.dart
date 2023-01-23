@@ -39,7 +39,7 @@ class NovelFull extends Source {
     }
     List<ShallowNovel> novelList = [];
     for (var n in novels) {
-      var novel = selectorNovel(n);
+      var novel = selectorShallowNovel(n);
       novelList.add(novel);
     }
     // check for extra pages
@@ -48,8 +48,22 @@ class NovelFull extends Source {
   }
 
   @override
-  ShallowNovel selectorNovel(element) {
+  ShallowNovel selectorShallowNovel(element) {
     ShallowNovel n = ShallowNovel();
+
+    // get the title
+    n.title = element.querySelector("div.col-xs-7 > div > h3 > a")?.text ?? "";
+
+    // get the cover url
+    n.coverUrl =
+        element.querySelector("div.col-xs-3 > a > img")?.attributes["src"] ??
+            "";
+
+    // get the novel url
+    n.sourceUrl = element
+            .querySelector("div.col-xs-7 > div > h3 > a")
+            ?.attributes["href"] ??
+        "";
 
     return n;
   }
