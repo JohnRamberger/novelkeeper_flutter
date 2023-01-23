@@ -24,6 +24,8 @@ class ScrapeJob {
   }
 
   // Getters
+  get id => _id;
+  get uri => _uri;
   get error => _error;
   get document => _document;
 
