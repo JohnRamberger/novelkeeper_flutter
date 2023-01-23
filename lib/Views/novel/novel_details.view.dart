@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:novelkeeper_flutter/Components/novel_details.component.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
 import 'package:novelkeeper_flutter/utils/Url/url.dart';
+
+import '../../Model/novel/novel.model.dart';
 
 class NovelDetailsView extends StatefulWidget {
   const NovelDetailsView({required this.shallowNovel, super.key});
@@ -16,6 +19,7 @@ class NovelDetailsView extends StatefulWidget {
 
 class _NovelDetailsViewState extends State<NovelDetailsView> {
   bool _loadingDetails = true;
+  late Novel _novel;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +32,17 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
 
   _loadDetails() async {
     setState(() {
-      _loadingDetails = false;
+      _loadingDetails = true;
     });
     // switch (baseUrl(widget.shallowNovel.sourceUrl)) {
     //  each case should be a source class
     switch (getBaseUrl(widget.shallowNovel.sourceUrl)) {
       case "https://novelfull.com":
         var novel = await NovelFull().getNovelDetailsJob(widget.shallowNovel);
-        print(novel);
+        setState(() {
+          _novel = novel;
+          _loadingDetails = false;
+        });
         break;
       default:
         throw Exception("Unknown source");
@@ -51,6 +58,8 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
   }
 
   Widget _buildDetails() {
-    return Container(child: Text("details"));
+    return SingleChildScrollView(
+      child: Column(children: [NovelDetails(novel: _novel)]),
+    );
   }
 }
