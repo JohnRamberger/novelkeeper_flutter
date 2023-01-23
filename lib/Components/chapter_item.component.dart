@@ -14,6 +14,7 @@ class ChapterItem extends StatelessWidget {
         chapter.title,
         overflow: TextOverflow.ellipsis,
       ),
+      trailing: const Icon(Icons.arrow_circle_down),
       onLongPress: () {
         // create popup with full title
         Flushbar(
