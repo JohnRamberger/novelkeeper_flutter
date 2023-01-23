@@ -60,4 +60,15 @@ abstract class Source {
       ScrapeJob job, ShallowNovel shallow, List<Chapter> chapters);
 
   // ---------- Content ----------
+
+  /// Get the content of the chapter
+  /// @param chapter The chapter
+  /// @return Future<Chapter>
+  Future<Chapter> getChapterContentJob(Chapter chapter);
+
+  /// selector - Get the content of the chapter
+  /// @param job The scrape job
+  /// @param chapter The chapter
+  /// @return String
+  String selectorChapterContent(ScrapeJob job, Chapter chapter);
 }

@@ -222,4 +222,24 @@ class NovelFull extends Source {
     novel.coverUrl = coverUrl;
     return novel;
   }
+
+  // ---------- Content ----------
+
+  @override
+  Future<Chapter> getChapterContentJob(Chapter chapter) async {
+    // make the job
+    var job = ScrapeJob(url: chapter.sourceUrl);
+    await NKConfig.scrapeClient.startJob(job);
+
+    // get the chapter content
+    var content = selectorChapterContent(job, chapter);
+
+    chapter.content = content;
+    return chapter;
+  }
+
+  @override
+  String selectorChapterContent(ScrapeJob job, Chapter chapter) {
+    return "";
+  }
 }
