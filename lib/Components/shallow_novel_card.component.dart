@@ -6,9 +6,12 @@ import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Views/novel/novel_details.view.dart';
 
 class ShallowNovelCard extends StatelessWidget {
-  const ShallowNovelCard({required this.novel, super.key});
+  const ShallowNovelCard(
+      {required this.novel, this.fontSize = 14, this.maxLines = -1, super.key});
 
   final ShallowNovel novel;
+  final double fontSize;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,9 @@ class ShallowNovelCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
                     novel.title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
-                    style: const TextStyle(fontSize: 14),
+                    overflow: maxLines > 0 ? TextOverflow.ellipsis : null,
+                    maxLines: maxLines > 0 ? maxLines : null,
+                    style: TextStyle(fontSize: fontSize),
                   ),
                 )
               ],

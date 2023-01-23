@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:novelkeeper_flutter/Components/novel_grid.component.dart';
 import 'package:novelkeeper_flutter/Components/shallow_novel_card.component.dart';
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
@@ -49,21 +51,11 @@ class _NovelfullViewState extends State<NovelfullView> {
 
   Widget _buildNovelList() {
     return SingleChildScrollView(
-        child: GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.5,
-      ),
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: _novels.length,
-      itemBuilder: (context, index) {
-        return _buildNovel(_novels[index]);
-      },
-    ));
-  }
-
-  Widget _buildNovel(ShallowNovel novel) {
-    return ShallowNovelCard(novel: novel);
+        padding: const EdgeInsets.all(8),
+        child: NovelGrid(
+          novels: _novels,
+          crossAxisCount: 3,
+          maxLines: 3,
+        ));
   }
 }
