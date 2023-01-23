@@ -4,7 +4,7 @@ import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 
 /// Novel is a model that contains all the information of a novel.
 class Novel {
-  String title, description, coverUrl, sourceUrl, status;
+  String title, description, coverUrl, sourceUrl, status, sourceName;
   List<String> authors;
   List<String>? alternateTitles = [];
   List<String>? genres = [];
@@ -18,6 +18,7 @@ class Novel {
       required this.sourceUrl,
       required this.status,
       required this.chapters,
+      required this.sourceName,
       this.alternateTitles,
       this.genres,
       this.isFavorite = false});
@@ -28,6 +29,7 @@ class Novel {
       required this.description,
       required this.status,
       required this.chapters,
+      required this.sourceName,
       this.alternateTitles,
       this.genres,
       this.isFavorite = false})

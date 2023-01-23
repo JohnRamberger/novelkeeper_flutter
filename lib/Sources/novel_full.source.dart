@@ -211,6 +211,7 @@ class NovelFull extends Source {
 
     var novel = Novel.fromShallow(
         shallowNovel: shallow,
+        sourceName: name,
         authors: authorList,
         status: status,
         description: description,
