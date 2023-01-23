@@ -56,8 +56,13 @@ class NovelFull extends Source {
 
     // get the cover url
     n.coverUrl =
-        element.querySelector("div.col-xs-3 > a > img")?.attributes["src"] ??
+        element.querySelector("div.col-xs-3 > div > img")?.attributes["src"] ??
             "";
+
+    // check if the cover url is relative
+    if (n.coverUrl != "" && !n.coverUrl!.startsWith("http")) {
+      n.coverUrl = "$baseUrl${n.coverUrl}";
+    }
 
     // get the novel url
     n.sourceUrl = element
