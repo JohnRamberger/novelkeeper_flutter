@@ -240,6 +240,7 @@ class NovelFull extends Source {
 
   @override
   String selectorChapterContent(ScrapeJob job, Chapter chapter) {
-    return "";
+    // TODO: implement selectorChapterContent
+    throw UnimplementedError();
   }
 }
