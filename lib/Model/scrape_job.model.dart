@@ -13,14 +13,12 @@ class ScrapeJob {
 
   ScrapeJobStatus status = ScrapeJobStatus.PENDING;
 
-  final dynamic Function(ScrapeJob) callback;
-
-  ScrapeJob({required String url, required this.callback, bool https = true}) {
+  ScrapeJob({required String url, bool https = true}) {
     _id = const Uuid().v4();
     _uri = https ? Uri.https(url, "") : Uri.http(url, "");
   }
 
-  ScrapeJob.fromUri({required Uri uri, required this.callback}) {
+  ScrapeJob.fromUri({required Uri uri}) {
     _id = const Uuid().v4();
     _uri = uri;
   }
@@ -34,12 +32,10 @@ class ScrapeJob {
   setError(Object err) {
     _error = err;
     status = ScrapeJobStatus.ERROR;
-    callback(this);
   }
 
   setSuccess(Document doc) {
     _document = doc;
     status = ScrapeJobStatus.SUCCESS;
-    callback(this);
   }
 }

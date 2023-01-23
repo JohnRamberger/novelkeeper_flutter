@@ -1,6 +1,6 @@
-import 'package:novelkeeper_flutter/utils/Scraping/scrape.dart';
+import 'package:novelkeeper_flutter/model/scrape_client.model.dart';
 
 class NKConfig {
   static const String appName = "Novel Keeper";
-  static ScrapeClient scrapeClient = ScrapeClient();
+  static var scrapeClient = ScrapeClient();
 }

@@ -12,7 +12,9 @@ class NovelFull extends Source {
       {required int page, required String query}) async {
     String url = "$baseUrl/search?keyword=$query&page=$page";
 
-    ScrapeJob(url: url, callback: (completedJob) {});
+    ScrapeJob(
+      url: url,
+    );
     throw UnimplementedError();
   }
 }
