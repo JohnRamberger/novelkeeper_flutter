@@ -10,6 +10,6 @@ class ShallowNovelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image(image: NetworkImage(novel.coverUrl)));
+    return Image(image: NetworkImage(novel.coverUrl));
   }
 }
