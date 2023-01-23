@@ -118,7 +118,7 @@ class NovelFull extends Source {
     // get the href of the last page
     var lastPage =
         job.document.querySelector("div.row + ul.pagination > li.last > a");
-    if (lastPage != null) {
+    if (lastPage == null) {
       // no last page, so we're done
       return chapterList;
     }
