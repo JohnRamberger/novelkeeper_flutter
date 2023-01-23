@@ -19,7 +19,7 @@ class _SourcesViewState extends State<SourcesView> {
         ListTile(
           title: Text("Novelfull"),
           onTap: () {
-            Navigator.pushReplacement(context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => NovelfullView()));
           },
         )
