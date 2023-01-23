@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:novelkeeper_flutter/Components/chapter_item.component.dart';
 
 import '../Model/novel/novel.model.dart';
 
@@ -51,7 +52,15 @@ class NovelDetails extends StatelessWidget {
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Text("genres: ${novel.genres!.join(", ")}")
                 : const SizedBox.shrink(),
-            Text("description: ${novel.description}")
+            Text("description: ${novel.description}"),
+            ListView.builder(
+              itemCount: novel.chapters.length,
+              itemBuilder: (context, index) {
+                return ChapterItem(chapter: novel.chapters[index]);
+              },
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+            )
           ],
         ));
   }
