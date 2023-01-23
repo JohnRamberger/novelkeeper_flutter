@@ -38,9 +38,6 @@ class NovelDetails extends StatelessWidget {
           child: Text(novel.genres.toString()),
         ),
         Container(
-          child: Text(novel.chapters.toString()),
-        ),
-        Container(
           child: Text(novel.isFavorite.toString()),
         ),
       ],
