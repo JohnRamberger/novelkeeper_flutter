@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parse;
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:faker/faker.dart';
-import 'package:novelkeeper_flutter/utils/Scraping/scrape_job.model.dart';
+import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
 
 class ScrapeClient {
   /// The http client
