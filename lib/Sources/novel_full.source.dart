@@ -44,10 +44,19 @@ class NovelFull extends Source {
       novelList.add(novel);
     }
     // check for extra pages
-    var pages = job.document.querySelectorAll(
-        "#list-page > div.col-xs-12.col-sm-12.col-md-9.col-truyen-main.archive > div > div.pagination > ul > li > a");
+    var lastPage = job.document.querySelector(
+        "#container > div.container.text-center.pagination-container > div > ul > li.last > a");
 
-    return SearchResult(novels: novelList);
+    var pageCount = 0;
+    if (lastPage != null) {
+      var href = lastPage.attributes["href"];
+      if (href != null && href.isNotEmpty) {
+        // get the page count
+        pageCount = int.parse(href.split("=").last ?? "0");
+      }
+    }
+
+    return SearchResult(novels: novelList, pageCount: pageCount);
   }
 
   @override
