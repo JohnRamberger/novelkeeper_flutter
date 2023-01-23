@@ -3,12 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parse;
 import 'package:novelkeeper_flutter/Config/config.dart';
 
-class Scrape {
+class Scraper {
   /// a valid sting url
-  final String url;
+  // final String url;
 
   /// The uri to scrape
-  Uri _uri = Uri();
+  // Uri _uri = Uri();
 
   /// The http client
   final _client = http.Client();
@@ -22,26 +22,33 @@ class Scrape {
   /// called when the scraping is successful. returns the parsed html document.
   final dynamic Function(Document) onSuccess;
 
-  Scrape(
-      {required this.url,
-      required this.onError,
+  Scraper(
+      {required this.onError,
       required this.onSuccess,
-      this.timeout = const Duration(seconds: 5)}) {
-    // convert url to valid uri
-    _uri = Uri.https(url);
+      this.timeout = const Duration(seconds: 5)});
 
+  /// Scrape the url
+  url(String url) {
     try {
-      // get the html
-      _getHtml();
+      _getHtml(Uri.https(url));
     } catch (err) {
       _handleError(err);
     }
   }
 
-  _getHtml() async {
+  /// Scrape the uri
+  uri(Uri uri) {
+    try {
+      _getHtml(uri);
+    } catch (err) {
+      _handleError(err);
+    }
+  }
+
+  _getHtml(Uri uri) async {
     try {
       // get the html
-      final response = await _client.get(_uri, headers: {
+      final response = await _client.get(uri, headers: {
         "User-Agent": NKConfig.userAgent,
         "Accept": "text/html",
       }).timeout(timeout, onTimeout: () {

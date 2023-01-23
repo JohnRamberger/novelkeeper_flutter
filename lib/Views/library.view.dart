@@ -13,14 +13,7 @@ class _LibraryViewState extends State<LibraryView> {
   bool _scraping = true;
   @override
   Widget build(BuildContext context) {
-    if (_scraping) {
-      Scrape(
-          url: "novelfull.com",
-          onError: (err) {},
-          onSuccess: (doc) {
-            print(doc.head?.querySelector("title")?.text);
-          });
-    }
+    if (_scraping) {}
     return Container();
   }
 }
