@@ -12,17 +12,8 @@ class LibraryView extends StatefulWidget {
 }
 
 class _LibraryViewState extends State<LibraryView> {
-  bool _loading = true;
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
-      _search();
-    }
     return Container();
-  }
-
-  _search() async {
-    var x = await NovelFull().searchNovelJob(query: "a");
-    print(x);
   }
 }
