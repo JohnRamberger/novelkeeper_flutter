@@ -65,28 +65,27 @@ class NovelFull extends Source {
 
   @override
   ShallowNovel selectorShallowNovel(element) {
-    ShallowNovel n = ShallowNovel();
-
     // get the title
-    n.title = element.querySelector("div.col-xs-7 > div > h3 > a")?.text ?? "";
+    var title =
+        element.querySelector("div.col-xs-7 > div > h3 > a")?.text ?? "";
 
     // get the cover url
-    n.coverUrl =
+    var coverUrl =
         element.querySelector("div.col-xs-3 > div > img")?.attributes["src"] ??
             "";
 
     // check if the cover url is relative
-    n.coverUrl = getFullUrl(baseUrl, n.coverUrl ?? "");
+    coverUrl = getFullUrl(baseUrl, coverUrl ?? "");
 
     // get the novel url
-    n.sourceUrl = element
+    var sourceUrl = element
             .querySelector("div.col-xs-7 > div > h3 > a")
             ?.attributes["href"] ??
         "";
 
     // check if the novel url is relative
-    n.sourceUrl = getFullUrl(baseUrl, n.sourceUrl ?? "");
+    sourceUrl = getFullUrl(baseUrl, sourceUrl ?? "");
 
-    return n;
+    return ShallowNovel(title: title, coverUrl: coverUrl, sourceUrl: sourceUrl);
   }
 }
