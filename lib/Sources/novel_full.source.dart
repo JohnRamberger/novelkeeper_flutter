@@ -111,9 +111,8 @@ class NovelFull extends Source {
   @override
   Future<List<Chapter>> getNovelChaptersJob(
       {required ScrapeJob job, required ShallowNovel shallow}) async {
-    int chaptersFound = 0;
     // get the chapters from the current page first using selectors
-    List<Chapter> chapterList = selectorNovelChapters(job, chaptersFound);
+    List<Chapter> chapterList = selectorNovelChapters(job, 0);
 
     // get the href of the last page
     var lastPage =
@@ -125,13 +124,14 @@ class NovelFull extends Source {
     var lastPageHref = lastPage.attributes["href"];
     // int currentPageIndex = 2;
     int lastPageIndex = int.parse(lastPageHref.split("=").last ?? "0");
-
+    int chaptersFound = chapterList.length;
     for (var i = 2; i <= lastPageIndex; i++) {
       // make a new sourcejob
       var newJob = ScrapeJob(url: "${shallow.sourceUrl}?page=$i");
       await NKConfig.scrapeClient.startJob(newJob);
       List<Chapter> newChapters = selectorNovelChapters(newJob, chaptersFound);
       chapterList = chapterList + newChapters;
+      chaptersFound += newChapters.length;
     }
 
     return chapterList;
