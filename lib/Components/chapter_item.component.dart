@@ -9,7 +9,10 @@ class ChapterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(chapter.title),
+      title: Text(
+        chapter.title,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }
