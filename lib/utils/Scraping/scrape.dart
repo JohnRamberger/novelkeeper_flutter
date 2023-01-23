@@ -28,37 +28,38 @@ class ScrapeClient {
       job.status = ScrapeJobStatus.RUNNING;
       _getHtml(job.uri);
     } catch (err) {
-      _handleError(err);
+      _handleError(job, err);
     }
   }
 
-  _getHtml(Uri uri) async {
+  _getHtml(ScrapeJob job) async {
     try {
       // get the html
-      final response = await _client.get(uri, headers: {
+      final response = await _client.get(job.uri, headers: {
         "User-Agent": NKConfig.userAgent,
         "Accept": "text/html",
       }).timeout(timeout, onTimeout: () {
         throw Exception("Request timed out");
       });
       // parse the html
-      _parseHtml(response.body);
+      _parseHtml(job, response.body);
     } catch (err) {
-      _handleError(err);
+      _handleError(job, err);
     }
   }
 
   /// Parse the html
-  _parseHtml(String body) {
+  _parseHtml(ScrapeJob job, String body) {
     try {
       // parse the html
-      var document = parse.parse(body);
+      job.setSuccess(parse.parse(body));
     } catch (err) {
-      _handleError(err);
+      _handleError(job, err);
     }
   }
 
-  _handleError(Object err) {
+  _handleError(ScrapeJob job, Object err) {
     print(err.toString());
+    job.setError(err);
   }
 }

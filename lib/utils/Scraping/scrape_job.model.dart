@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:html/dom.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -13,12 +13,14 @@ class ScrapeJob {
 
   ScrapeJobStatus status = ScrapeJobStatus.PENDING;
 
-  ScrapeJob({required String url, bool https = true}) {
+  final dynamic Function() callback;
+
+  ScrapeJob({required String url, required this.callback, bool https = true}) {
     _id = const Uuid().v4();
     _uri = https ? Uri.https(url, "") : Uri.http(url, "");
   }
 
-  ScrapeJob.fromUri(Uri uri) {
+  ScrapeJob.fromUri({required Uri uri, required this.callback}) {
     _id = const Uuid().v4();
     _uri = uri;
   }
