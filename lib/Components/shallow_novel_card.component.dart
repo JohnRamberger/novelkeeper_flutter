@@ -20,15 +20,20 @@ class ShallowNovelCard extends StatelessWidget {
               children: [
                 Row(children: [
                   Expanded(
+                      child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
                     child: Image(
                         image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
-                  )
+                  ))
                 ]),
-                Text(
-                  novel.title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    novel.title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                  ),
+                )
               ],
             )),
         onTap: () {
