@@ -20,6 +20,9 @@ abstract class Source {
   Future<SearchResult> searchNovelJob(
       {required int page, required String query});
 
+  /// Get the list of novels from the source (whether that be search, list, or filter)
+  Future<SearchResult> listNovelJob(ScrapeJob job);
+
   /// selector - Get the list of novels from the search job
   SearchResult selectorNovelsFromSearch(ScrapeJob job);
 

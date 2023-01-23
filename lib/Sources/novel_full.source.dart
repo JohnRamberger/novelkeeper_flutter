@@ -21,7 +21,11 @@ class NovelFull extends Source {
         "$baseUrl/search?keyword=$query${page > 0 ? "&page=$page" : ""}";
     // make the job
     var job = ScrapeJob(url: url);
+    return await listNovelJob(job);
+  }
 
+  @override
+  Future<SearchResult> listNovelJob(ScrapeJob job) async {
     await NKConfig.scrapeClient.startJob(job);
 
     // get list of novels
