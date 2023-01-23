@@ -7,6 +7,8 @@ import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
 
 import 'package:novelkeeper_flutter/utils/Scraping/scrape.dart';
 
+const osName = 'iOS';
+
 class ScrapeClient {
   /// The http client
   var _client = http.Client();
@@ -14,14 +16,14 @@ class ScrapeClient {
   /// a timeout duration
   final Duration timeout;
 
-  String userAgent = faker.internet.userAgent(osName: 'android');
+  String userAgent = faker.internet.userAgent(osName: osName);
 
   ScrapeClient({this.timeout = const Duration(seconds: 5)});
 
   /// Refresh the client with a new user agent
   refresh() {
     _client.close();
-    userAgent = faker.internet.userAgent(osName: 'android');
+    userAgent = faker.internet.userAgent(osName: osName);
     _client = http.Client();
   }
 
