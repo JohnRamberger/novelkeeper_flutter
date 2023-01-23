@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:novelkeeper_flutter/Components/novel_details.component.dart';
@@ -21,6 +22,7 @@ class NovelDetailsView extends StatefulWidget {
 class _NovelDetailsViewState extends State<NovelDetailsView> {
   bool _loadingDetails = true;
   late Novel _novel;
+  late List<Chapter> _chapters;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
         if (mounted) {
           setState(() {
             _novel = novel;
+            _chapters = novel.chapters.reversed.toList();
             _loadingDetails = false;
           });
         }
@@ -66,10 +69,10 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
         // TODO: fix NovelDetails from lagging
         // NovelDetails(novel: _novel),
         ListView.builder(
-          itemCount: _novel.chapters.length,
-          prototypeItem: ChapterItem(chapter: _novel.chapters[0]),
+          itemCount: _chapters.length,
+          prototypeItem: ChapterItem(chapter: _chapters[0]),
           itemBuilder: (context, index) {
-            return ChapterItem(chapter: _novel.chapters[index]);
+            return ChapterItem(chapter: _chapters[index]);
           },
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
