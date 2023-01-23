@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+// import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:novelkeeper_flutter/Components/novel_grid.component.dart';
-import 'package:novelkeeper_flutter/Components/shallow_novel_card.component.dart';
-import 'package:novelkeeper_flutter/Config/config.dart';
+// import 'package:novelkeeper_flutter/Components/shallow_novel_card.component.dart';
+// import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
 
@@ -15,7 +15,8 @@ class NovelfullView extends StatefulWidget {
 
 class _NovelfullViewState extends State<NovelfullView> {
   List<ShallowNovel> _novels = [];
-  int _currPage = 1;
+  // int _currPage = 1;
+  // ignore: unused_field
   int _pages = 1;
   bool _loading = true;
   @override

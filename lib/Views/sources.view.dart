@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/container.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:novelkeeper_flutter/Views/Sources/novel_full.view.dart';
 
 class SourcesView extends StatefulWidget {
@@ -17,10 +17,10 @@ class _SourcesViewState extends State<SourcesView> {
     return ListView(
       children: [
         ListTile(
-          title: Text("Novelfull"),
+          title: const Text("Novelfull"),
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => NovelfullView()));
+                MaterialPageRoute(builder: (context) => const NovelfullView()));
           },
         )
       ],

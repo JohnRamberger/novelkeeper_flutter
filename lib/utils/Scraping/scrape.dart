@@ -34,7 +34,7 @@ _parseHtml(ScrapeJob job, String body) {
 }
 
 _handleError(ScrapeJob job, Object err, StackTrace stacktrace) {
-  print(err);
-  print(stacktrace);
+  // print(err);
+  // print(stacktrace);
   job.setError(err);
 }

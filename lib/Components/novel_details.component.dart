@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:novelkeeper_flutter/Components/chapter_item.component.dart';
+// import 'package:novelkeeper_flutter/Components/chapter_item.component.dart';
 
-import '../Model/novel/chapter.model.dart';
+// import '../Model/novel/chapter.model.dart';
 import '../Model/novel/novel.model.dart';
 
 class NovelDetails extends StatelessWidget {

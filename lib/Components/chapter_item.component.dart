@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 
 class ChapterItem extends StatelessWidget {

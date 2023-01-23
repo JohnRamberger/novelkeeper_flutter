@@ -5,6 +5,8 @@ import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
 import 'novel/chapter.model.dart';
 import 'novel/novel.model.dart';
 
+
+// ignore: constant_identifier_names
 enum SearchType { POPULAR, NEW, QUERY, FILTER }
 
 abstract class Source {

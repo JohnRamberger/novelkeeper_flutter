@@ -2,6 +2,7 @@ import 'package:html/dom.dart';
 
 import 'package:uuid/uuid.dart';
 
+// ignore: constant_identifier_names
 enum ScrapeJobStatus { PENDING, RUNNING, SUCCESS, ERROR }
 
 class ScrapeJob {
