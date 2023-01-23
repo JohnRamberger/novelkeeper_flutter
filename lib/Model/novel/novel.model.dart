@@ -1,5 +1,4 @@
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
-import 'package:novelkeeper_flutter/Model/source.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 
 /// Novel is a model that contains all the information of a novel.
