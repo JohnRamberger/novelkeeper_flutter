@@ -36,11 +36,13 @@ class _NovelfullViewState extends State<NovelfullView> {
       _loading = true;
     });
     var result = await NovelFull().searchNovelJob(query: query);
-    setState(() {
-      _novels = result.novels;
-      _pages = result.pageCount;
-      _loading = false;
-    });
+    if (mounted) {
+      setState(() {
+        _novels = result.novels;
+        _pages = result.pageCount;
+        _loading = false;
+      });
+    }
   }
 
   Widget _buildBody() {
