@@ -26,8 +26,7 @@ class NovelDetails extends StatelessWidget {
                   child: Image(
                       image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
                 ),
-                Expanded(
-                    child: Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -36,12 +35,19 @@ class NovelDetails extends StatelessWidget {
                             fontSize: 24, fontWeight: FontWeight.normal),
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis),
-                    Text(novel.authors.join(", ")),
-                    Text(novel.status),
+                    Text(
+                      novel.authors.join(", "),
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text("${novel.status} | ${novel.sourceName}"),
                   ],
-                ))
+                )
               ],
             ),
+            novel.genres != null && novel.genres!.isNotEmpty
+                ? Text("genres: ${novel.genres!.join(", ")}")
+                : const SizedBox.shrink()
           ],
         ));
   }
