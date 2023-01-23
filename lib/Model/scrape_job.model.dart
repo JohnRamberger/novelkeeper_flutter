@@ -13,9 +13,9 @@ class ScrapeJob {
 
   ScrapeJobStatus status = ScrapeJobStatus.PENDING;
 
-  ScrapeJob({required String url, bool https = true}) {
+  ScrapeJob({required String url}) {
     _id = const Uuid().v4();
-    _uri = https ? Uri.https(url, "") : Uri.http(url, "");
+    _uri = Uri.parse(url);
   }
 
   ScrapeJob.fromUri({required Uri uri}) {
@@ -37,5 +37,10 @@ class ScrapeJob {
   setSuccess(Document doc) {
     _document = doc;
     status = ScrapeJobStatus.SUCCESS;
+  }
+
+  @override
+  String toString() {
+    return "ScrapeJob(id: $_id, uri: $_uri, status: $status)";
   }
 }

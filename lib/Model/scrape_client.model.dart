@@ -28,6 +28,5 @@ class ScrapeClient {
   startJob(ScrapeJob job) async {
     job.status = ScrapeJobStatus.RUNNING;
     await scrape(job: job, client: _client);
-    print(job.status);
   }
 }
