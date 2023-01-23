@@ -4,17 +4,23 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:novelkeeper_flutter/Components/chapter_item.component.dart';
 
+import '../Model/novel/chapter.model.dart';
 import '../Model/novel/novel.model.dart';
 
 class NovelDetails extends StatelessWidget {
-  const NovelDetails({required this.novel, super.key});
+  NovelDetails({required this.novel, super.key})
+      : chaptersReversed = novel.chapters;
 
   final Novel novel;
+  final List<Chapter> chaptersReversed;
 
   @override
   Widget build(BuildContext context) {
+    chaptersReversed.sort((a, b) {
+      return b.index - a.index;
+    });
     return Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             LayoutGrid(
@@ -54,9 +60,9 @@ class NovelDetails extends StatelessWidget {
                 : const SizedBox.shrink(),
             Text("description: ${novel.description}"),
             ListView.builder(
-              itemCount: novel.chapters.length,
+              itemCount: chaptersReversed.length,
               itemBuilder: (context, index) {
-                return ChapterItem(chapter: novel.chapters[index]);
+                return ChapterItem(chapter: chaptersReversed[index]);
               },
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
