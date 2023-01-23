@@ -10,6 +10,7 @@ class ChapterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(title: Text(chapter.title));
+    return ListTile(
+        title: Text(chapter.title), subtitle: Text("index: ${chapter.index}"));
   }
 }
