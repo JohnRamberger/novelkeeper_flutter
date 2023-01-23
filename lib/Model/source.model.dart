@@ -8,10 +8,10 @@ enum SearchType { POPULAR, NEW, QUERY, FILTER }
 
 abstract class Source {
   /// The name of the source
-  String? name;
+  String name = "";
 
   /// The baseurl of the source
-  String? baseUrl;
+  String baseUrl = "";
 
   /// Get the list of novels from the source
   /// @param page The page number to get

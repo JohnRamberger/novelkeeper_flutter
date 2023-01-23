@@ -5,6 +5,6 @@ class ShallowNovel {
 
   @override
   String toString() {
-    return 'ShallowNovel(\n\ttitle: $title, \n\tcoverUrl: $coverUrl, \n\tsourceUrl: $sourceUrl\n)';
+    return 'ShallowNovel(title: $title, coverUrl: $coverUrl, sourceUrl: $sourceUrl\n)';
   }
 }

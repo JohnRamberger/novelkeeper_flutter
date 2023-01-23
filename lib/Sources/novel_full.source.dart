@@ -4,6 +4,7 @@ import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Model/results/search_result.model.dart';
 import 'package:novelkeeper_flutter/Model/source.model.dart';
 import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
+import 'package:novelkeeper_flutter/utils/Url/url.dart';
 
 import '../Model/novel/novel.model.dart';
 
@@ -43,6 +44,8 @@ class NovelFull extends Source {
       novelList.add(novel);
     }
     // check for extra pages
+    var pages = job.document.querySelectorAll(
+        "#list-page > div.col-xs-12.col-sm-12.col-md-9.col-truyen-main.archive > div > div.pagination > ul > li > a");
 
     return SearchResult(novels: novelList);
   }
@@ -60,15 +63,16 @@ class NovelFull extends Source {
             "";
 
     // check if the cover url is relative
-    if (n.coverUrl != "" && !n.coverUrl!.startsWith("http")) {
-      n.coverUrl = "$baseUrl${n.coverUrl}";
-    }
+    n.coverUrl = getFullUrl(baseUrl, n.coverUrl ?? "");
 
     // get the novel url
     n.sourceUrl = element
             .querySelector("div.col-xs-7 > div > h3 > a")
             ?.attributes["href"] ??
         "";
+
+    // check if the novel url is relative
+    n.sourceUrl = getFullUrl(baseUrl, n.sourceUrl ?? "");
 
     return n;
   }

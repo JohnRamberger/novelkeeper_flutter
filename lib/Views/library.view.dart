@@ -22,7 +22,7 @@ class _LibraryViewState extends State<LibraryView> {
   }
 
   _search() async {
-    var x = await NovelFull().searchNovelJob(query: "beginnin");
+    var x = await NovelFull().searchNovelJob(query: "a");
     print(x);
   }
 }
