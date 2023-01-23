@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 import '../Model/novel/novel.model.dart';
 
@@ -11,36 +12,37 @@ class NovelDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child: Text(novel.title),
-        ),
-        Container(
-          child: Text(novel.description),
-        ),
-        Container(
-          child: Text(novel.coverUrl),
-        ),
-        Container(
-          child: Text(novel.sourceUrl),
-        ),
-        Container(
-          child: Text(novel.status),
-        ),
-        Container(
-          child: Text(novel.authors.toString()),
-        ),
-        Container(
-          child: Text(novel.alternateTitles.toString()),
-        ),
-        Container(
-          child: Text(novel.genres.toString()),
-        ),
-        Container(
-          child: Text(novel.isFavorite.toString()),
-        ),
-      ],
-    );
+    return Container(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            LayoutGrid(
+              columnSizes: [1.fr, 2.fr],
+              rowSizes: const [auto],
+              columnGap: 10,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image(
+                      image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
+                ),
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(novel.title,
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.normal),
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis),
+                    Text(novel.authors.join(", ")),
+                    Text(novel.status),
+                  ],
+                ))
+              ],
+            ),
+          ],
+        ));
   }
 }
