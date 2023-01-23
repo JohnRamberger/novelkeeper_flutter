@@ -8,6 +8,6 @@ class SearchResult {
 
   @override
   String toString() {
-    return 'SearchResult(novels: \n$novels, \npageCount: $pageCount)';
+    return 'SearchResult(novels: ${novels.length}, pageCount: $pageCount)';
   }
 }
