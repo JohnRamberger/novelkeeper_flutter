@@ -41,6 +41,7 @@ dependencies:
   html: ^0.15.1
   faker: ^2.1.0
   uuid: ^3.0.7
+  flutter_layout_grid: ^2.0.1
 
 dev_dependencies:
   flutter_test:
