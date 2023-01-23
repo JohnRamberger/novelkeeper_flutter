@@ -45,9 +45,13 @@ class NovelDetails extends StatelessWidget {
                 )
               ],
             ),
+            novel.alternateTitles != null && novel.alternateTitles!.isNotEmpty
+                ? Text("alternate titles: ${novel.alternateTitles!.join(", ")}")
+                : const SizedBox.shrink(),
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Text("genres: ${novel.genres!.join(", ")}")
-                : const SizedBox.shrink()
+                : const SizedBox.shrink(),
+            Text("description: ${novel.description}")
           ],
         ));
   }
