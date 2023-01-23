@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
+import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
+import 'package:novelkeeper_flutter/utils/Url/url.dart';
 
 class NovelDetailsView extends StatefulWidget {
   const NovelDetailsView({required this.shallowNovel, super.key});
@@ -28,7 +30,16 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
     setState(() {
       _loadingDetails = false;
     });
-    // TODO: load details from site
+    // switch (baseUrl(widget.shallowNovel.sourceUrl)) {
+    //  each case should be a source class
+    switch (getBaseUrl(widget.shallowNovel.sourceUrl)) {
+      case "https://novelfull.com":
+        var novel = await NovelFull().getNovelDetailsJob(widget.shallowNovel);
+        print(novel);
+        break;
+      default:
+        throw Exception("Unknown source");
+    }
   }
 
   Widget _buildLoading() {
