@@ -6,6 +6,7 @@ import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
 import 'package:novelkeeper_flutter/utils/Url/url.dart';
 
+import '../../Components/chapter_item.component.dart';
 import '../../Model/novel/novel.model.dart';
 
 class NovelDetailsView extends StatefulWidget {
@@ -61,7 +62,19 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
 
   Widget _buildDetails() {
     return SingleChildScrollView(
-      child: Column(children: [NovelDetails(novel: _novel)]),
+      child: Column(children: [
+        // TODO: fix NovelDetails from lagging
+        // NovelDetails(novel: _novel),
+        ListView.builder(
+          itemCount: _novel.chapters.length,
+          prototypeItem: ChapterItem(chapter: _novel.chapters[0]),
+          itemBuilder: (context, index) {
+            return ChapterItem(chapter: _novel.chapters[index]);
+          },
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+        )
+      ]),
     );
   }
 }
