@@ -39,10 +39,12 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
     switch (getBaseUrl(widget.shallowNovel.sourceUrl)) {
       case "https://novelfull.com":
         var novel = await NovelFull().getNovelDetailsJob(widget.shallowNovel);
-        setState(() {
-          _novel = novel;
-          _loadingDetails = false;
-        });
+        if (mounted) {
+          setState(() {
+            _novel = novel;
+            _loadingDetails = false;
+          });
+        }
         break;
       default:
         throw Exception("Unknown source");
