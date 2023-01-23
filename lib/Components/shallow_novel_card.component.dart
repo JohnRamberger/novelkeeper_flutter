@@ -10,6 +10,22 @@ class ShallowNovelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image(image: NetworkImage(novel.coverUrl));
+    return Container(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Row(children: [
+              Expanded(
+                child: Image(
+                    image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
+              )
+            ]),
+            Text(
+              novel.title,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ],
+        ));
   }
 }
