@@ -15,12 +15,10 @@ class _LibraryViewState extends State<LibraryView> {
   Widget build(BuildContext context) {
     if (_scraping) {
       Scrape(
-          url: "novelfullhjkhj.com",
-          onError: (err) {
-            
-          },
+          url: "novelfull.com",
+          onError: (err) {},
           onSuccess: (doc) {
-            print(doc);
+            print(doc.head?.querySelector("title")?.text);
           });
     }
     return Container();
