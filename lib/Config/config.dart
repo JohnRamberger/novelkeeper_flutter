@@ -1,5 +1,3 @@
-import 'package:faker/faker.dart';
-
 class NKConfig {
   static const String appName = "Novel Keeper";
   static const String userAgent =
