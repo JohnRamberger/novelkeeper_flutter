@@ -13,6 +13,8 @@ abstract class Source {
   /// The baseurl of the source
   String baseUrl = "";
 
+  // ---------- Search ----------
+
   /// Get the list of novels from the source
   /// @param page The page number to get
   /// @param query The query to search for
@@ -28,4 +30,17 @@ abstract class Source {
 
   /// selector - Get the novel from html element
   ShallowNovel selectorShallowNovel(dynamic element);
+
+  // ---------- Details ----------
+
+  /// Get the novel details from the source
+  Future<Novel> getNovelDetailsJob(ShallowNovel novel);
+
+  /// selector - Get the novel details from the job
+  /// @param job The scrape job
+  /// @param shallow The shallow novel
+  /// @return Novel
+  Novel selectorNovelDetails(ScrapeJob job, ShallowNovel shallow);
+
+  // ---------- Content ----------
 }

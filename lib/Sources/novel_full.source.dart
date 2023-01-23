@@ -88,4 +88,47 @@ class NovelFull extends Source {
 
     return ShallowNovel(title: title, coverUrl: coverUrl, sourceUrl: sourceUrl);
   }
+
+  // ---------- Details ----------
+
+  @override
+  Future<Novel> getNovelDetailsJob(ShallowNovel novel) async {
+    // make the job
+    var job = ScrapeJob(url: novel.sourceUrl);
+    await NKConfig.scrapeClient.startJob(job);
+
+    // get the novel details
+    var details = selectorNovelDetails(job, novel);
+
+    return details;
+  }
+
+  @override
+  Novel selectorNovelDetails(ScrapeJob job, ShallowNovel shallow) {
+    // already have title, sourceURl and coverUrl
+    // need to replace coverUrl (due to image being shit)
+    var coverUrl = job.document
+            .querySelector(
+                "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-xs-12.col-sm-4.col-md-4.info-holder > div.books > div.book > img")
+            ?.attributes["src"] ??
+        "";
+
+    var authors = job.document.querySelectorAll(
+        "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-xs-12.col-sm-4.col-md-4.info-holder > div.info > div:nth-child(1) > a");
+
+    if (authors.length > 0) {
+      authors = authors.map((x) => x.text).toList();
+    } else {
+      authors = [];
+    }
+
+    var description = job.document.querySelector(
+        "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-xs-12.col-sm-8.col-md-8.desc > div.desc-text");
+
+    var novel = Novel.fromShallow(
+        shallowNovel: shallow, authors: authors, description: description);
+
+    novel.coverUrl = coverUrl;
+    return novel;
+  }
 }
