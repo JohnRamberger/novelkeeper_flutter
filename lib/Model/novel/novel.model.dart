@@ -6,10 +6,10 @@ import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 class Novel {
   String title, description, coverUrl, sourceUrl;
   List<String> authors;
-  List<String>? alternateTitles;
-  List<String>? genres;
-  List<Chapter>? chapters;
-  bool isFavorite = false;
+  List<String>? alternateTitles = [];
+  List<String>? genres = [];
+  List<Chapter>? chapters = [];
+  bool isFavorite;
   Novel(
       {required this.title,
       required this.authors,
