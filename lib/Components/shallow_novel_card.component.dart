@@ -32,6 +32,7 @@ class ShallowNovelCard extends StatelessWidget {
                     novel.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 4,
+                    style: const TextStyle(fontSize: 14),
                   ),
                 )
               ],
