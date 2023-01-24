@@ -16,7 +16,11 @@ class ChapterItem extends StatelessWidget {
             chapter.title,
             overflow: TextOverflow.ellipsis,
           ),
-          trailing: const Icon(Icons.arrow_circle_down),
+          trailing: const Tooltip(
+              message: "Download", child: Icon(Icons.arrow_circle_down)),
+          onTap: () {
+            // TODO: start reading chapter
+          },
           // onLongPress: () {
           //   // create popup with full title
           //   Flushbar(
