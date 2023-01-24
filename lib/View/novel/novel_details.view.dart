@@ -24,6 +24,8 @@ class NovelDetailsView extends StatefulWidget {
 }
 
 class _NovelDetailsViewState extends State<NovelDetailsView> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +52,24 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
   Widget _buildDetails() {
     return Consumer<NovelDetailsViewModel>(builder: (context, model, child) {
       return RefreshIndicator(
-          child: ListView.builder(
-              itemCount: model.chaptersRev.length + 1,
-              // prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return NovelDetails(novel: model.novel);
-                } else {
-                  return ListTile(title: Text(model.chaptersRev[index].title));
-                }
-              }),
+          child: Scrollbar(
+            thickness: 10,
+            radius: const Radius.circular(8),
+            controller: _scrollController,
+            interactive: true,
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: model.chaptersRev.length + 1,
+                // prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return NovelDetails(novel: model.novel);
+                  } else {
+                    return ListTile(
+                        title: Text(model.chaptersRev[index].title));
+                  }
+                }),
+          ),
           onRefresh: () async {
             model.reload();
           });
