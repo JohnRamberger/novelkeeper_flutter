@@ -28,7 +28,7 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
     return Scaffold(
         appBar: AppBar(),
         body: ChangeNotifierProvider(
-          create: (context) =>
+          create: (_) =>
               NovelDetailsViewModel(shallowNovel: widget.shallowNovel),
           child: _buildLoading(),
         ));
