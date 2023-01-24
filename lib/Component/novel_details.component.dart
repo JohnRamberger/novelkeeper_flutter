@@ -51,7 +51,17 @@ class NovelDetails extends StatelessWidget {
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Text("genres: ${novel.genres!.join(", ")}")
                 : const SizedBox.shrink(),
-            Text("description: ${novel.description}"),
+            // Text("description: ${novel.description}"),
+
+            RichText(
+              text: TextSpan(children: [
+                const TextSpan(
+                    text: "Description: ",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: novel.description)
+              ]),
+              maxLines: 5,
+            ),
           ],
         ));
   }
