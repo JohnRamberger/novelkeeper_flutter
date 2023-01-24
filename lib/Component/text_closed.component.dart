@@ -19,22 +19,36 @@ class TextClosed extends StatelessWidget {
         create: (context) => TextClosedViewModel(),
         child: Consumer<TextClosedViewModel>(builder: ((context, value, child) {
           return InkWell(
-            child: RichText(
-              text: TextSpan(children: [
-                const TextSpan(
-                    text: "Description: ",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: text)
-              ]),
-              maxLines: value.isClosed ? maxLines : null,
-            ),
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    RichText(
+                      text: TextSpan(children: [
+                        const TextSpan(
+                            text: "Description: ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: text)
+                      ]),
+                      maxLines: value.isClosed ? maxLines : null,
+                      overflow: TextOverflow.fade,
+                    ),
+                    Center(
+                      child: Icon(
+                        value.isClosed ? Icons.expand_more : Icons.expand_less,
+                        size: 34,
+                      ),
+                    )
+                  ],
+                )),
             onTap: () {
               value.toggle();
             },
             onLongPress: () {
               // Clipboard.setData(ClipboardData(text: text));
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Press to expand description"),
+                content: Text("Press to expand/collapse"),
               ));
             },
           );
