@@ -12,6 +12,9 @@ class NovelDetailsViewModel extends ChangeNotifier {
   /// This is used to prevent calling notifyListeners() after dispose()
   bool _mounted = true;
 
+  /// Whether this provider is mounted
+  bool get mounted => _mounted;
+
   /// Whether the novel is still loading
   bool isLoading = true;
 
