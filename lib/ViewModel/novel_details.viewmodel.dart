@@ -48,6 +48,9 @@ class NovelDetailsViewModel extends ChangeNotifier {
         chaptersRev = novel.chapters.reversed.toList();
         isLoading = false;
         if (_mounted) notifyListeners();
+
+        // TODO: cache novel
+
         break;
       default:
         throw Exception("Unknown source");
