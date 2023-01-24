@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:novelkeeper_flutter/Views/library.view.dart';
-import 'package:novelkeeper_flutter/Views/sources.view.dart';
+import 'package:novelkeeper_flutter/View/library.view.dart';
+import 'package:novelkeeper_flutter/View/sources.view.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
-import 'package:novelkeeper_flutter/Views/novel/novel_details.view.dart';
+import 'package:novelkeeper_flutter/View/novel/novel_details.view.dart';
 
 class ShallowNovelCard extends StatelessWidget {
   const ShallowNovelCard(

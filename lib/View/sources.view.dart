@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
-import 'package:novelkeeper_flutter/Views/Sources/novel_full.view.dart';
+import 'package:novelkeeper_flutter/View/Sources/novel_full.view.dart';
 
 class SourcesView extends StatefulWidget {
   const SourcesView({super.key});
