@@ -65,8 +65,7 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
                   if (index == 0) {
                     return NovelDetails(novel: model.novel);
                   } else {
-                    return ListTile(
-                        title: Text(model.chaptersRev[index].title));
+                    return ChapterItem(chapter: model.chaptersRev[index - 1]);
                   }
                 }),
           ),
