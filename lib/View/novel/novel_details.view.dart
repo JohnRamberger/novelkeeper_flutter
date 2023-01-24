@@ -48,20 +48,24 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
 
   Widget _buildDetails() {
     return Consumer<NovelDetailsViewModel>(builder: (context, model, child) {
-      return SingleChildScrollView(
-          child: Column(children: [
-        // TODO: fix NovelDetails from lagging
-        // NovelDetails(novel: _novel),
-        ListView.builder(
-          itemCount: model.chaptersRev.length,
-          prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
-          itemBuilder: (context, index) {
-            return ChapterItem(chapter: model.chaptersRev[index]);
-          },
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-        )
-      ]));
+      return RefreshIndicator(
+          child: SingleChildScrollView(
+              child: Column(children: [
+            // TODO: fix NovelDetails from lagging
+            // NovelDetails(novel: _novel),
+            ListView.builder(
+              itemCount: model.chaptersRev.length,
+              prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
+              itemBuilder: (context, index) {
+                return ChapterItem(chapter: model.chaptersRev[index]);
+              },
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+            )
+          ])),
+          onRefresh: () async {
+            model.reload();
+          });
     });
   }
 }

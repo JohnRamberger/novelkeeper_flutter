@@ -34,6 +34,8 @@ class NovelDetailsViewModel extends ChangeNotifier {
 
   /// Reloads the novel from the source
   void reload() {
+    isLoading = true;
+    if (_mounted) notifyListeners();
     _loadNovel();
   }
 
