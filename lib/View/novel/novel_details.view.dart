@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:novelkeeper_flutter/Component/novel_details.component.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
@@ -51,8 +52,7 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
       return RefreshIndicator(
           child: SingleChildScrollView(
               child: Column(children: [
-            // TODO: fix NovelDetails from lagging
-            // NovelDetails(novel: _novel),
+            NovelDetails(novel: model.novel),
             ListView.builder(
               itemCount: model.chaptersRev.length,
               prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
