@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class TextClosed extends ChangeNotifier {
+class TextClosedViewModel extends ChangeNotifier {
   bool _mounted = true;
   bool get mounted => _mounted;
 

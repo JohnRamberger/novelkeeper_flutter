@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:novelkeeper_flutter/Component/text_closed.component.dart';
 // import 'package:novelkeeper_flutter/Components/chapter_item.component.dart';
 
 // import '../Model/novel/chapter.model.dart';
@@ -53,15 +54,16 @@ class NovelDetails extends StatelessWidget {
                 : const SizedBox.shrink(),
             // Text("description: ${novel.description}"),
 
-            RichText(
-              text: TextSpan(children: [
-                const TextSpan(
-                    text: "Description: ",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: novel.description)
-              ]),
-              maxLines: 5,
-            ),
+            // RichText(
+            //   text: TextSpan(children: [
+            //     const TextSpan(
+            //         text: "Description: ",
+            //         style: TextStyle(fontWeight: FontWeight.bold)),
+            //     TextSpan(text: novel.description)
+            //   ]),
+            //   maxLines: 5,
+            // ),
+            TextClosed(text: novel.description)
           ],
         ));
   }
