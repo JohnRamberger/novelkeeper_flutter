@@ -9,25 +9,27 @@ class ChapterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        chapter.title,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: const Icon(Icons.arrow_circle_down),
-      onLongPress: () {
-        // create popup with full title
-        Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          message: chapter.title,
-          duration: const Duration(seconds: 3),
-          flushbarStyle: FlushbarStyle.FLOATING,
-          backgroundColor: Colors.white,
-          messageColor: Colors.black,
-          margin: const EdgeInsets.all(8),
-          borderRadius: BorderRadius.circular(8),
-        ).show(context);
-      },
-    );
+    return Tooltip(
+        message: chapter.title,
+        child: ListTile(
+          title: Text(
+            chapter.title,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: const Icon(Icons.arrow_circle_down),
+          // onLongPress: () {
+          //   // create popup with full title
+          //   Flushbar(
+          //     flushbarPosition: FlushbarPosition.BOTTOM,
+          //     message: chapter.title,
+          //     duration: const Duration(seconds: 3),
+          //     flushbarStyle: FlushbarStyle.FLOATING,
+          //     backgroundColor: Colors.white,
+          //     messageColor: Colors.black,
+          //     margin: const EdgeInsets.all(8),
+          //     borderRadius: BorderRadius.circular(8),
+          //   ).show(context);
+          // },
+        ));
   }
 }
