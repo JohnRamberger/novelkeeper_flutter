@@ -5,10 +5,13 @@ import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 // import 'package:novelkeeper_flutter/Components/novel_details.component.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Source/novel_full.source.dart';
+import 'package:novelkeeper_flutter/ViewModel/novel_details.viewmodel.dart';
 import 'package:novelkeeper_flutter/utils/Url/url.dart';
 
 import '../../Component/chapter_item.component.dart';
 import '../../Model/novel/novel.model.dart';
+
+import 'package:provider/provider.dart';
 
 class NovelDetailsView extends StatefulWidget {
   const NovelDetailsView({required this.shallowNovel, super.key});
@@ -20,64 +23,45 @@ class NovelDetailsView extends StatefulWidget {
 }
 
 class _NovelDetailsViewState extends State<NovelDetailsView> {
-  bool _loadingDetails = true;
-  late Novel _novel;
-  late List<Chapter> _chapters;
-
   @override
   Widget build(BuildContext context) {
-    if (_loadingDetails) {
-      _loadDetails();
-    }
-
-    return Scaffold(appBar: AppBar(), body: _buildLoading());
-  }
-
-  _loadDetails() async {
-    setState(() {
-      _loadingDetails = true;
-    });
-    // switch (baseUrl(widget.shallowNovel.sourceUrl)) {
-    //  each case should be a source class
-    switch (getBaseUrl(widget.shallowNovel.sourceUrl)) {
-      case "https://novelfull.com":
-        var novel = await NovelFull().getNovelDetailsJob(widget.shallowNovel);
-        if (mounted) {
-          setState(() {
-            _novel = novel;
-            _chapters = novel.chapters.reversed.toList();
-            _loadingDetails = false;
-          });
-        }
-        break;
-      default:
-        throw Exception("Unknown source");
-    }
+    return Scaffold(
+        appBar: AppBar(),
+        body: ChangeNotifierProvider(
+          create: (context) =>
+              NovelDetailsViewModel(shallowNovel: widget.shallowNovel),
+          child: _buildLoading(),
+        ));
   }
 
   Widget _buildLoading() {
-    return _loadingDetails
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : _buildDetails();
+    return Consumer<NovelDetailsViewModel>(
+      builder: (context, model, child) {
+        if (model.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return _buildDetails();
+        }
+      },
+    );
   }
 
   Widget _buildDetails() {
-    return SingleChildScrollView(
-      child: Column(children: [
+    return Consumer<NovelDetailsViewModel>(builder: (context, model, child) {
+      return SingleChildScrollView(
+          child: Column(children: [
         // TODO: fix NovelDetails from lagging
         // NovelDetails(novel: _novel),
         ListView.builder(
-          itemCount: _chapters.length,
-          prototypeItem: ChapterItem(chapter: _chapters[0]),
+          itemCount: model.chaptersRev.length,
+          prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
           itemBuilder: (context, index) {
-            return ChapterItem(chapter: _chapters[index]);
+            return ChapterItem(chapter: model.chaptersRev[index]);
           },
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
         )
-      ]),
-    );
+      ]));
+    });
   }
 }
