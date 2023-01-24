@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:novelkeeper_flutter/Components/main_navigation.dart';
+import 'package:novelkeeper_flutter/Component/main_navigation.dart';
 import "package:novelkeeper_flutter/Config/config.dart";
 // import 'package:novelkeeper_flutter/Views/library.view.dart';
 

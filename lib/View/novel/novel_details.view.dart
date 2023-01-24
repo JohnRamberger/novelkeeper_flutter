@@ -4,10 +4,10 @@ import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:novelkeeper_flutter/Components/novel_details.component.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
-import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
+import 'package:novelkeeper_flutter/Source/novel_full.source.dart';
 import 'package:novelkeeper_flutter/utils/Url/url.dart';
 
-import '../../Components/chapter_item.component.dart';
+import '../../Component/chapter_item.component.dart';
 import '../../Model/novel/novel.model.dart';
 
 class NovelDetailsView extends StatefulWidget {

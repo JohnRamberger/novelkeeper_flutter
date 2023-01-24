@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:novelkeeper_flutter/Components/shallow_novel_card.component.dart';
+import 'package:novelkeeper_flutter/Component/shallow_novel_card.component.dart';
 
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 

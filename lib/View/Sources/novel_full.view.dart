@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:novelkeeper_flutter/Components/novel_grid.component.dart';
+import 'package:novelkeeper_flutter/Component/novel_grid.component.dart';
 // import 'package:novelkeeper_flutter/Components/shallow_novel_card.component.dart';
 // import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
-import 'package:novelkeeper_flutter/Sources/novel_full.source.dart';
+import 'package:novelkeeper_flutter/Source/novel_full.source.dart';
 
 class NovelfullView extends StatefulWidget {
   const NovelfullView({super.key});
