@@ -1,4 +1,5 @@
 // import 'package:http/http.dart';
+import 'package:intersperse/intersperse.dart';
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
 import 'package:novelkeeper_flutter/Model/results/search_result.model.dart';
@@ -182,10 +183,10 @@ class NovelFull extends Source {
       authorList.add(a.text);
     }
 
-    String description = job.document
-        .querySelector(
-            "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-xs-12.col-sm-8.col-md-8.desc > div.desc-text")
-        ?.text;
+    var descriptionList = job.document.querySelectorAll(
+        "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-xs-12.col-sm-8.col-md-8.desc > div.desc-text > p");
+
+    String description = descriptionList.map((x) => x.text).join("\n\n");
 
     var alternateTitles =
         job.document.querySelector("div.info > div:nth-child(1)");
