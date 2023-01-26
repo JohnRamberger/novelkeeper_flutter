@@ -48,7 +48,7 @@ class NovelDetails extends StatelessWidget {
               ],
             ),
             novel.alternateTitles != null && novel.alternateTitles!.isNotEmpty
-                ? TextClosed(text: novel.alternateTitles!.join(", "))
+                ? Text("Alternate Titles: ${novel.alternateTitles!.join(", ")}")
                 : const SizedBox.shrink(),
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Container(
