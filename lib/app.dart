@@ -4,7 +4,8 @@ import 'package:novelkeeper_flutter/Component/main_navigation.dart';
 import "package:novelkeeper_flutter/Config/config.dart";
 // import 'package:novelkeeper_flutter/Views/library.view.dart';
 
-import 'package:novelkeeper_flutter/utils/Update/auto_update.dart';
+// import 'package:novelkeeper_flutter/utils/Update/auto_update.dart';
+import 'package:auto_update/auto_update.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
