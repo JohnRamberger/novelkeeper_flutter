@@ -1,0 +1,104 @@
+name: Release - build and publish
+on:
+  push:
+    tags:
+      - "*"
+  pull_request:
+    tags:
+      - "*"
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set output
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
+
+      # - name: save tag without 'v' prefix
+      #   id: tag_without_v
+      #   run: |
+      #     VERSION=${{ github.vars.release.tag }}
+      #     echo "tag_without_v=${VERSION#v}" >> $GITHUB_ENV
+      # - name: Check output
+      #   env:
+      #     RELEASE_VERSION_V: ${{ steps.tag_without_v.outputs.tag_without_v }}
+      #   run: |
+      #     echo $RELEASE_VERSION_V
+      #     echo ${{ steps.tag_without_v.outputs.tag_without_v }}
+
+      - name: remove v from tag
+        id: tag_without_v
+        run: |
+          VERSION=${{ steps.vars.outputs.tag }}
+          echo "tag_without_v=${VERSION#v}" >> $GITHUB_ENV
+      - name: Check output
+        env:
+          RELEASE_VERSION_V: ${{ steps.tag_without_v.outputs.tag_without_v }}
+        run: |
+          echo $tag_without_v
+
+      - name: Update pubspec.yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: "pubspec.yaml"
+          propertyPath: "version"
+          value: ${{ env.tag_without_v }}
+          commitChange: false
+
+      - name: "Read file contents"
+        uses: andstor/file-reader-action@v1
+        with:
+          path: "pubspec.yaml"
+          print: true
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+
+      - name: do flutter stuff
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.9"
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk
+      - run: flutter build appbundle
+
+      # - name: Bump version and push tag
+      #   id: tag_version
+      #   uses: mathieudutour/github-tag-action@v6.1
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create new env var for tag with "-auto" suffix
+        id: tag_version
+        run: |
+          echo "tag=${GITHUB_REF#refs/*/}-auto" >> $GITHUB_ENV
+      - name: Check output
+        env:
+          RELEASE_VERSION_AUTO: ${{ steps.tag_version.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION_AUTO
+          echo ${{ steps.tag_version.outputs.tag }}
+
+      # create the new release tag
+      - name: automatic release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ steps.tag_version.outputs.tag }}
+          prerelease: false
+          files: |
+            LICENSE.txt
+            build/app/outputs/bundle/release/app-release.aab
+            build/app/outputs/flutter-apk/app-release.apk
