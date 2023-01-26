@@ -57,10 +57,13 @@ class NovelDetails extends StatelessWidget {
                 ? Container(
                     height: 48,
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: ListView.builder(
+                    child: ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: novel.genres!.length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 8);
+                        },
                         itemBuilder: ((context, index) {
                           return GenreTag(labelText: novel.genres![index]);
                         })))
