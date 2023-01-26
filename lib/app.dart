@@ -24,48 +24,26 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initPlatformState() async {
-    Map<dynamic, dynamic> updateUrl;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      updateUrl = await AutoUpdate.fetchGithub(
-        "johnramberger",
-        "novelkeeper_flutter",
-      );
-    } on PlatformException {
-      updateUrl = {'assetUrl': 'Failed to get the url of the new release.'};
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _packageUpdateUrl = updateUrl;
-    });
+    
   }
 
-  Future<void> updateApp() async {
-    if (_packageUpdateUrl['assetUrl'].isNotEmpty &&
-        _packageUpdateUrl['assetUrl'] != "up-to-date" &&
-        (_packageUpdateUrl['assetUrl'] as String).contains("https://")) {
-      try {
-        await AutoUpdate.downloadAndUpdate(_packageUpdateUrl['assetUrl']);
-      } on PlatformException {
-        setState(() {
-          _packageUpdateUrl['assetUrl'] = "Unable to download";
-        });
-      }
-    }
-  }
+  // Future<void> updateApp() async {
+  //   if (_packageUpdateUrl['assetUrl'].isNotEmpty &&
+  //       _packageUpdateUrl['assetUrl'] != "up-to-date" &&
+  //       (_packageUpdateUrl['assetUrl'] as String).contains("https://")) {
+  //     try {
+  //       await AutoUpdate.downloadAndUpdate(_packageUpdateUrl['assetUrl']);
+  //     } on PlatformException {
+  //       setState(() {
+  //         _packageUpdateUrl['assetUrl'] = "Unable to download";
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     // TODO: return to last opened page
-
-    print(_packageUpdateUrl);
-
     return MaterialApp(
       title: NKConfig.appName,
       theme: ThemeData.light(),
