@@ -53,7 +53,7 @@ class NovelDetails extends StatelessWidget {
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Container(
                     height: 48,
-                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    padding: const EdgeInsets.all(8),
                     child: ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
