@@ -29,7 +29,10 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
         body: ChangeNotifierProvider(
           create: (_) =>
               NovelDetailsViewModel(shallowNovel: widget.shallowNovel),
