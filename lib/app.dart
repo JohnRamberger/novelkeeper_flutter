@@ -43,9 +43,25 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> updateApp() async {
+    if (_packageUpdateUrl['assetUrl'].isNotEmpty &&
+        _packageUpdateUrl['assetUrl'] != "up-to-date" &&
+        (_packageUpdateUrl['assetUrl'] as String).contains("https://")) {
+      try {
+        await AutoUpdate.downloadAndUpdate(_packageUpdateUrl['assetUrl']);
+      } on PlatformException {
+        setState(() {
+          _packageUpdateUrl['assetUrl'] = "Unable to download";
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: return to last opened page
+
+    print(_packageUpdateUrl);
 
     return MaterialApp(
       title: NKConfig.appName,
