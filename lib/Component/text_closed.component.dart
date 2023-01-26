@@ -8,9 +8,11 @@ import 'package:novelkeeper_flutter/ViewModel/text_closed.viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class TextClosed extends StatelessWidget {
-  const TextClosed({required this.text, this.maxLines = 5, super.key});
+  const TextClosed(
+      {required this.text, this.labelText = "", this.maxLines = 5, super.key});
 
   final String text;
+  final String labelText;
   final int maxLines;
 
   @override
@@ -28,9 +30,12 @@ class TextClosed extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 16),
                         child: RichText(
                           text: TextSpan(children: [
-                            const TextSpan(
-                                text: "Description: ",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            labelText.isNotEmpty
+                                ? TextSpan(
+                                    text: "$labelText ",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold))
+                                : const TextSpan(),
                             TextSpan(text: text)
                           ]),
                           maxLines: value.isClosed ? maxLines : null,

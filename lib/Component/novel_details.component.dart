@@ -48,7 +48,7 @@ class NovelDetails extends StatelessWidget {
               ],
             ),
             novel.alternateTitles != null && novel.alternateTitles!.isNotEmpty
-                ? Text("alternate titles: ${novel.alternateTitles!.join(", ")}")
+                ? TextClosed(text: novel.alternateTitles!.join(", "))
                 : const SizedBox.shrink(),
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Container(
@@ -67,16 +67,7 @@ class NovelDetails extends StatelessWidget {
                 : const SizedBox.shrink(),
             // Text("description: ${novel.description}"),
 
-            // RichText(
-            //   text: TextSpan(children: [
-            //     const TextSpan(
-            //         text: "Description: ",
-            //         style: TextStyle(fontWeight: FontWeight.bold)),
-            //     TextSpan(text: novel.description)
-            //   ]),
-            //   maxLines: 5,
-            // ),
-            TextClosed(text: novel.description)
+            TextClosed(labelText: "Description:", text: novel.description)
           ],
         ));
   }
