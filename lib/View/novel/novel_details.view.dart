@@ -59,11 +59,24 @@ class _NovelDetailsViewState extends State<NovelDetailsView> {
             interactive: true,
             child: ListView.builder(
                 controller: _scrollController,
-                itemCount: model.chaptersRev.length + 1,
+                itemCount: model.chaptersRev.length + 3,
                 // prototypeItem: ChapterItem(chapter: model.chaptersRev[0]),
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return NovelDetails(novel: model.novel);
+                  } else if (index == 1) {
+                    return const ListTile(
+                      title: Text(
+                        "Chapter",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                  } else if (index == 2) {
+                    return const Divider(
+                      thickness: 2,
+                    );
                   } else {
                     return ChapterItem(chapter: model.chaptersRev[index - 1]);
                   }
