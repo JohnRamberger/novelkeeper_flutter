@@ -22,24 +22,31 @@ class TextClosed extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: Container(
                 padding: const EdgeInsets.all(8),
-                child: Column(
+                child: Stack(
                   children: [
-                    RichText(
-                      text: TextSpan(children: [
-                        const TextSpan(
-                            text: "Description: ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: text)
-                      ]),
-                      maxLines: value.isClosed ? maxLines : null,
-                      overflow: TextOverflow.fade,
-                    ),
-                    Center(
-                      child: Icon(
-                        value.isClosed ? Icons.expand_more : Icons.expand_less,
-                        size: 34,
-                      ),
-                    )
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: RichText(
+                          text: TextSpan(children: [
+                            const TextSpan(
+                                text: "Description: ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: text)
+                          ]),
+                          maxLines: value.isClosed ? maxLines : null,
+                          overflow: TextOverflow.fade,
+                        )),
+                    Positioned.fill(
+                        bottom: -10,
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            // TODO: add rotated animation to arrow icon
+                            child: Icon(
+                              value.isClosed
+                                  ? Icons.expand_more
+                                  : Icons.expand_less,
+                              size: 34,
+                            )))
                   ],
                 )),
             onTap: () {
