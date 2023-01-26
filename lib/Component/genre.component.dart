@@ -14,11 +14,13 @@ class GenreTag extends StatelessWidget {
     //     child: Text(labelText));
     return Badge(
         badgeContent: Text(labelText),
-        badgeAnimation: ,
+        badgeAnimation: const BadgeAnimation.slide(
+          animationDuration: Duration(seconds: 0),
+        ),
         badgeStyle: BadgeStyle(
           shape: BadgeShape.square,
           borderRadius: BorderRadius.circular(8),
-          badgeColor: Colors.green,
+          badgeColor: Theme.of(context).primaryColor,
         ));
   }
 }
