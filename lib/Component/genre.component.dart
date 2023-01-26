@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 class GenreTag extends StatelessWidget {
@@ -7,6 +8,17 @@ class GenreTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text(labelText));
+    // return Container(
+    //     padding: const EdgeInsets.all(8),
+    //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+    //     child: Text(labelText));
+    return Badge(
+        badgeContent: Text(labelText),
+        badgeAnimation: ,
+        badgeStyle: BadgeStyle(
+          shape: BadgeShape.square,
+          borderRadius: BorderRadius.circular(8),
+          badgeColor: Colors.green,
+        ));
   }
 }

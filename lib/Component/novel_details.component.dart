@@ -55,7 +55,7 @@ class NovelDetails extends StatelessWidget {
                 : const SizedBox.shrink(),
             novel.genres != null && novel.genres!.isNotEmpty
                 ? Container(
-                    height: 32,
+                    height: 48,
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: ListView.builder(
                         shrinkWrap: true,
