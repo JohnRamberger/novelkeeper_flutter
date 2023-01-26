@@ -4,7 +4,7 @@ import 'package:novelkeeper_flutter/Component/main_navigation.dart';
 import "package:novelkeeper_flutter/Config/config.dart";
 // import 'package:novelkeeper_flutter/Views/library.view.dart';
 
-import 'package:auto_update/auto_update.dart';
+import 'package:novelkeeper_flutter/utils/AutoUpdate/auto_update.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -27,8 +27,10 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      updateUrl =
-          await AutoUpdate.fetchGithub("JohnRamberger", "novelkeeper_flutter");
+      updateUrl = await AutoUpdate.fetchGithub(
+        "johnramberger",
+        "novelkeeper_flutter",
+      );
     } on PlatformException {
       updateUrl = {'assetUrl': 'Failed to get the url of the new release.'};
     }
