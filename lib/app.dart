@@ -5,7 +5,7 @@ import "package:novelkeeper_flutter/Config/config.dart";
 // import 'package:novelkeeper_flutter/Views/library.view.dart';
 
 // import 'package:novelkeeper_flutter/utils/Update/auto_update.dart';
-import 'package:auto_update/auto_update.dart';
+import 'package:novelkeeper_flutter/utils/Updater/updater.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initPlatformState() async {
-    
+    await Updater.checkGithubForRelease();
   }
 
   // Future<void> updateApp() async {

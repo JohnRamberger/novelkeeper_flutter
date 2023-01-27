@@ -4,8 +4,6 @@ import 'package:novelkeeper_flutter/app.dart';
 
 
 void main() async {
-  
-
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
