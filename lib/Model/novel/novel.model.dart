@@ -169,6 +169,42 @@ class NovelProvider {
         sourceName: "");
   }
 
+  /// Get a novel by source url
+  /// @param sourceUrl the source url of the novel
+  /// Returns a novel
+  /// If the novel is not found, returns a novel with empty fields
+  Future<Novel> getNovelBySourceUrl(String sourceUrl) async {
+    List<Map> maps = await _db.query(tableName,
+        columns: [
+          columnId,
+          columnTitle,
+          columnSourceUrl,
+          columnCoverUrl,
+          columnDescription,
+          columnStatus,
+          columnAuthors,
+          columnAlternateTitles,
+          columnChapters,
+          columnGenres,
+          columnSourceName,
+          columnIsFavorite
+        ],
+        where: '$columnSourceUrl = ?',
+        whereArgs: [sourceUrl]);
+    if (maps.isNotEmpty) {
+      return Novel.fromMap(maps.first);
+    }
+    return Novel(
+        title: "",
+        authors: [],
+        description: "",
+        coverUrl: "",
+        sourceUrl: "",
+        status: "",
+        chapters: [],
+        sourceName: "");
+  }
+
   /// Get all novels
   /// Returns a list of novels
   /// If the list is empty, there are no novels
