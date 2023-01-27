@@ -20,7 +20,7 @@ class NKConfig {
 
   static Future<void> init() async {
     // init stuff
-    dbPath = join(await getDatabasesPath(), "novelkeeper1.db");
+    dbPath = join(await getDatabasesPath(), "novelkeeper.db");
 
     // open the database
   }

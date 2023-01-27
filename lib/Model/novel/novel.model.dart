@@ -83,6 +83,12 @@ class Novel {
     ChapterProvider chapterProvider = ChapterProvider();
     await chapterProvider.open();
 
+    List<dynamic> chapterIds =
+        map[columnChapters].split(",").map((e) => int.parse(e)).toList();
+    var chapters = await Future.wait(chapterIds
+        .map((e) async => await chapterProvider.getChapter(e))
+        .toList());
+
     return Novel(
         title: map[columnTitle],
         authors: map[columnAuthors].split(","),
@@ -92,11 +98,7 @@ class Novel {
         status: map[columnStatus],
         sourceName: map[columnSourceName],
         alternateTitles: map[columnAlternateTitles]?.split(","),
-        chapters: map[columnChapters]
-                ?.split(",")
-                ?.map((e) => chapterProvider.getChapter(int.parse(e)))
-                ?.toList() ??
-            [],
+        chapters: chapters,
         genres: map[columnGenres]?.split(","),
         isFavorite: map[columnIsFavorite] == 1);
   }
