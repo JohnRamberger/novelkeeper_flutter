@@ -55,7 +55,8 @@ class _MyAppState extends State<MyApp> {
     send.send([id, status, progress]);
     if (status.value == 3) {
       // completed
-
+      FlutterDownloader.open(taskId: id);
+      // Updater.installRelease(id);
     }
   }
 
@@ -71,22 +72,22 @@ class _MyAppState extends State<MyApp> {
             context: context,
             builder: ((context) {
               return AlertDialog(
-                title: Text("Update Available"),
-                content: Text(
+                title: const Text("Update Available"),
+                content: const Text(
                     "A new version of ${NKConfig.appName} is available. Would you like to update?"),
                 actions: [
                   TextButton(
-                    child: Text("Later"),
+                    child: const Text("Later"),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("Update"),
+                    child: const Text("Update"),
                     onPressed: () async {
                       await Updater.downloadRelease(updater["assetUrl"],
                           updater["version"], updater["name"]);
-                      Navigator.of(context).pop();
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                   ),
                 ],

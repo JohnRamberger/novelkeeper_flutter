@@ -68,12 +68,21 @@ class Updater {
         saveInPublicStorage: true);
   }
 
-  static Future<void> installRelease(
-      String url, String version, String name) async {
-    print("ready to install");
-    final nk = await getExternalStorageDirectory();
-    return;
-  }
+  // static Future<void> installRelease(String taskId) async {
+  //   print("ready to install");
+  //   // final tasks = await FlutterDownloader.loadTasksWithRawQuery(
+  //   //     query: 'SELECT * FROM task WHERE status=3');
+
+  //   // if (tasks == null || tasks.isEmpty) {
+  //   //   return;
+  //   // }
+
+  //   // final task = tasks.first;
+  //   // final apkPath = "${task.savedDir}/${task.filename ?? ""}";
+  //   await FlutterDownloader.open(taskId: taskId);
+
+  //   return;
+  // }
 }
 
 int getExtendedVersionNumber(String version) {

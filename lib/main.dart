@@ -6,7 +6,7 @@ import 'Config/config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
   runApp(MaterialApp(
       title: NKConfig.appName,
       theme: ThemeData.light(),
