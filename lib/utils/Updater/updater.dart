@@ -52,8 +52,7 @@ class Updater {
 
   static Future<void> downloadRelease(
       String url, String version, String name) async {
-    Directory tempDir = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                    BuildConfig.APPLICATION_ID + ".provider", file);
+    Directory? tempDir = await getExternalStorageDirectory();
     // create a new folder in temp dir
     final nk = await getExternalStorageDirectory();
     // final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
