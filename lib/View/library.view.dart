@@ -14,25 +14,13 @@ class LibraryView extends StatefulWidget {
 }
 
 class _LibraryViewState extends State<LibraryView> {
-  PackageInfo packageInfo = PackageInfo(
-    appName: "NovelKeeper",
-    packageName: "com.novelkeeper.novelkeeper",
-    version: "-1:-1:-1",
-    buildNumber: "0",
-  );
-
   @override
   void initState() {
     super.initState();
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      setState(() {
-        this.packageInfo = packageInfo;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text(packageInfo.version));
+    return Container(child: Text("hello"));
   }
 }

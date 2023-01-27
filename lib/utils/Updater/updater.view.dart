@@ -40,7 +40,7 @@ class _UpdateCheckerState extends State<UpdateChecker> {
 
   @override
   void dispose() {
-    _unbindBackgroundIsolate();
+    if (widget.checkForUpdate) _unbindBackgroundIsolate();
     super.dispose();
   }
 
