@@ -6,6 +6,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import "package:http/http.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:version/version.dart';
 
 class Updater {
@@ -48,22 +49,30 @@ class Updater {
     return {"update": false};
   }
 
-  static Future<void> downloadAndUpdate(
+  static Future<void> downloadRelease(
       String url, String version, String name) async {
     Directory? tempDir = await getApplicationDocumentsDirectory();
     // create a new folder in temp dir
-    final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
-      ..createSync(recursive: true);
+    final nk = await getExternalStorageDirectory();
+    // final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
+    //   ..createSync(recursive: true);
 
     final taskId = await FlutterDownloader.enqueue(
         url: url,
         headers: {}, // optional: header send with url (auth token etc)
-        savedDir: nk.path,
+        savedDir: nk!.path,
         showNotification:
             false, // show download progress in status bar (for Android)
         openFileFromNotification:
             false, // click on notification to open downloaded file (for Android)
         saveInPublicStorage: true);
+  }
+
+  static Future<void> installRelease(
+      String url, String version, String name) async {
+    print("ready to install");
+    final nk = await getExternalStorageDirectory();
+    return;
   }
 }
 
