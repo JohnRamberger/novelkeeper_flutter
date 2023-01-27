@@ -125,6 +125,7 @@ class NovelProvider {
             $columnSourceName text not null,
             $columnIsFavorite boolean not null)
           ''');
+      version = dbVersion;
     });
   }
 
