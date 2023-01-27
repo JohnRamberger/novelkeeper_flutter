@@ -107,8 +107,8 @@ class NovelProvider {
   late Database _db;
 
   /// Open the database
-  Future open() async {
-    _db = await openDatabase('novel.db', version: dbVersion,
+  Future open(String path) async {
+    _db = await openDatabase(path, version: dbVersion,
         onCreate: (Database db, int version) async {
       await db.execute('''
           create table $tableName ( 
