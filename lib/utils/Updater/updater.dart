@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import "package:http/http.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:version/version.dart';
@@ -45,8 +46,15 @@ class Updater {
   }
 
   static Future<void> downloadAndUpdate(String url) async {
-    
-
+    final taskId = await FlutterDownloader.enqueue(
+      url: url,
+      headers: {}, // optional: header send with url (auth token etc)
+      savedDir: 'the path of directory where you want to save downloaded files',
+      showNotification:
+          true, // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
   }
 }
 
