@@ -25,7 +25,8 @@ class Chapter {
       required this.index,
       this.isRead = false,
       this.isBookmarked = false,
-      this.isDownloaded = false});
+      this.isDownloaded = false,
+      this.id});
 
   Chapter.withContent({
     required this.title,
@@ -35,6 +36,7 @@ class Chapter {
     this.isRead = false,
     this.isBookmarked = false,
     this.isDownloaded = false,
+    this.id,
   });
 
   Map<String, dynamic> toMap() {
@@ -47,6 +49,18 @@ class Chapter {
       columnIsBookmarked: isBookmarked == true ? 1 : 0,
       columnIsDownloaded: isDownloaded == true ? 1 : 0,
     };
+  }
+
+  factory Chapter.fromMap(Map<dynamic, dynamic> map) {
+    return Chapter(
+      id: map[columnId],
+      title: map[columnTitle],
+      sourceUrl: map[columnSourceUrl],
+      index: map[columnIndex],
+      isRead: map[columnIsRead] == 1,
+      isBookmarked: map[columnIsBookmarked] == 1,
+      isDownloaded: map[columnIsDownloaded] == 1,
+    );
   }
 }
 
@@ -107,13 +121,7 @@ class ChapterProvider {
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
-      return Chapter(
-          title: maps.first[columnTitle],
-          sourceUrl: maps.first[columnSourceUrl],
-          index: maps.first[columnIndex],
-          isRead: maps.first[columnIsRead] == 1,
-          isBookmarked: maps.first[columnIsBookmarked] == 1,
-          isDownloaded: maps.first[columnIsDownloaded] == 1);
+      return Chapter.fromMap(maps.first);
     }
     return Chapter(
       title: '',
@@ -140,13 +148,7 @@ class ChapterProvider {
         where: '$columnSourceUrl = ?',
         whereArgs: [sourceUrl]);
     if (maps.isNotEmpty) {
-      return Chapter(
-          title: maps.first[columnTitle],
-          sourceUrl: maps.first[columnSourceUrl],
-          index: maps.first[columnIndex],
-          isRead: maps.first[columnIsRead] == 1,
-          isBookmarked: maps.first[columnIsBookmarked] == 1,
-          isDownloaded: maps.first[columnIsDownloaded] == 1);
+      return Chapter.fromMap(maps.first);
     }
     return Chapter(
       title: '',

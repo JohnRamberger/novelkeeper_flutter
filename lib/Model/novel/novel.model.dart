@@ -36,6 +36,7 @@ class Novel {
       required this.status,
       required this.chapters,
       required this.sourceName,
+      this.id,
       this.alternateTitles,
       this.genres,
       this.isFavorite = false});
@@ -47,6 +48,7 @@ class Novel {
       required this.status,
       required this.chapters,
       required this.sourceName,
+      this.id,
       this.alternateTitles,
       this.genres,
       this.isFavorite = false})
@@ -90,6 +92,7 @@ class Novel {
         .toList());
 
     return Novel(
+        id: map[columnId],
         title: map[columnTitle],
         authors: map[columnAuthors].split(","),
         description: map[columnDescription],
