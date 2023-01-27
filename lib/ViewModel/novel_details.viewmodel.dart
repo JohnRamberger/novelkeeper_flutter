@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
@@ -32,8 +34,25 @@ class NovelDetailsViewModel extends ChangeNotifier {
   final ShallowNovel shallowNovel;
 
   NovelDetailsViewModel({required this.shallowNovel}) {
-    // TODO: check cache first
-    _loadNovel();
+    _checkForCacheOrLoad();
+  }
+
+  Future _checkForCacheOrLoad() async {
+    // check for cached novel
+    NovelProvider novelProvider = NovelProvider();
+    await novelProvider.open(NKConfig.dbPath);
+
+    Novel cachedNovel =
+        await novelProvider.getNovelBySourceUrl(shallowNovel.sourceUrl);
+
+    if (cachedNovel.id != null && cachedNovel.id! > 0) {
+      // novel is cached
+      novel = cachedNovel;
+      // check for cached chapters
+    } else {
+      // novel is not cached
+      _loadNovel();
+    }
   }
 
   /// Reloads the novel from the source
