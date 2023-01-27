@@ -17,7 +17,6 @@ const String columnGenres = 'genres';
 const String columnChapters = 'chapters';
 const String columnSourceName = 'sourceName';
 const String columnIsFavorite = 'isFavorite';
-const int dbVersion = 1;
 
 /// Novel is a model that contains all the information of a novel.
 class Novel {
@@ -82,7 +81,7 @@ class Novel {
 
   static Future<Novel> fromMap(Map<dynamic, dynamic> map) async {
     ChapterProvider chapterProvider = ChapterProvider();
-    await chapterProvider.open(NKConfig.dbPath);
+    await chapterProvider.open();
 
     return Novel(
         title: map[columnTitle],
@@ -108,11 +107,13 @@ class NovelProvider {
 
   /// Open the database
   Future open(String path) async {
-    _db = await openDatabase(path, version: dbVersion,
-        onCreate: (Database db, int version) async {
-      await db.execute('''
+    _db = await NKConfig.openDB();
+  }
+
+  /// The initial script to create the table
+  static String initialScript = '''
           create table $tableName ( 
-            $columnId integer primary key autoincrement, 
+            "$columnId" integer primary key autoincrement, 
             $columnTitle text not null,
             $columnSourceUrl text not null,
             $columnCoverUrl text not null,
@@ -124,10 +125,7 @@ class NovelProvider {
             $columnGenres text,
             $columnSourceName text not null,
             $columnIsFavorite boolean not null)
-          ''');
-      version = dbVersion;
-    });
-  }
+          ''';
 
   Future<Novel> insert(Novel novel) async {
     novel.id = await _db.insert(tableName, novel.toMap());

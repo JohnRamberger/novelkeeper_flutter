@@ -93,7 +93,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
   Future _cacheNovel(Novel novel) async {
     // cache novel chapters
     ChapterProvider chapterProvider = ChapterProvider();
-    await chapterProvider.open(NKConfig.dbPath);
+    await chapterProvider.open();
 
     for (var chapter in novel.chapters) {
       // check if chapter is already cached

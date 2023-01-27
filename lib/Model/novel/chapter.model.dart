@@ -1,3 +1,4 @@
+import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:sqflite/sqflite.dart';
 
 // define sqlite table and column names
@@ -9,7 +10,6 @@ const String columnIndex = 'listIndex';
 const String columnIsRead = 'isRead';
 const String columnIsBookmarked = 'isBookmarked';
 const String columnIsDownloaded = 'isDownloaded';
-const int dbVersion = 1;
 
 class Chapter {
   int? id;
@@ -64,12 +64,13 @@ class ChapterProvider {
   late Database _db;
 
   /// Open the database
-  /// @param path the path to the database
-  /// @return the database
-  Future open(String path) async {
-    _db = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-      await db.execute('''
+  /// @return the opened database
+  Future open() async {
+    _db = await NKConfig.openDB();
+  }
+
+  /// The initial script to create the table
+  static String initialScript = '''
           CREATE TABLE $tableName (
             "$columnId"                INTEGER PRIMARY KEY AUTOINCREMENT  ,
             $columnTitle                TEXT NOT NULL    ,
@@ -79,10 +80,7 @@ class ChapterProvider {
             $columnIsBookmarked         BOOLEAN  DEFAULT false   ,
             $columnIsDownloaded         BOOLEAN  DEFAULT false
           )
-          ''');
-      version = dbVersion;
-    });
-  }
+          ''';
 
   /// Insert a chapter into the database
   /// @param chapter the chapter to insert
