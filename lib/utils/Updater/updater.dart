@@ -9,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:version/version.dart';
+import 'package:android_path_provider/android_path_provider.dart';
 
 class Updater {
   static Client _client = Client();
@@ -52,16 +53,12 @@ class Updater {
 
   static Future<void> downloadRelease(
       String url, String version, String name) async {
-    Directory? tempDir = await getExternalStorageDirectory();
-    // create a new folder in temp dir
-    final nk = await getExternalStorageDirectory();
-    // final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
-    //   ..createSync(recursive: true);
+    String? dir = await AndroidPathProvider.downloadsPath;
 
     final taskId = await FlutterDownloader.enqueue(
         url: url,
         headers: {}, // optional: header send with url (auth token etc)
-        savedDir: nk!.path,
+        savedDir: dir,
         showNotification:
             true, // show download progress in status bar (for Android)
         openFileFromNotification:

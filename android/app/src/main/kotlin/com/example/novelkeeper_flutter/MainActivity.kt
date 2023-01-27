@@ -1,4 +1,4 @@
-package com.jramberger.novelkeeper_flutter
+package com.jramberger.novelkeeper
 
 import io.flutter.embedding.android.FlutterActivity
 
