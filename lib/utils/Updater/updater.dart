@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import "package:http/http.dart";
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:version/version.dart';
 
 class Updater {
@@ -46,14 +48,15 @@ class Updater {
   }
 
   static Future<void> downloadAndUpdate(String url) async {
+    Directory tempDir = await getTemporaryDirectory();
     final taskId = await FlutterDownloader.enqueue(
       url: url,
       headers: {}, // optional: header send with url (auth token etc)
-      savedDir: 'the path of directory where you want to save downloaded files',
+      savedDir: tempDir.path,
       showNotification:
-          true, // show download progress in status bar (for Android)
+          false, // show download progress in status bar (for Android)
       openFileFromNotification:
-          true, // click on notification to open downloaded file (for Android)
+          false, // click on notification to open downloaded file (for Android)
     );
   }
 }

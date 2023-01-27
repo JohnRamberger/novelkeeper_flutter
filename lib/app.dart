@@ -24,7 +24,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initPlatformState() async {
-    await Updater.checkGithubForRelease();
+    var updater = await Updater.checkGithubForRelease();
+    if (updater["update"]) {
+      await Updater.downloadAndUpdate(updater["assetUrl"]);
+    }
   }
 
   // Future<void> updateApp() async {
