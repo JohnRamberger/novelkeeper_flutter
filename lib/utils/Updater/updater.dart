@@ -50,7 +50,7 @@ class Updater {
 
   static Future<void> downloadAndUpdate(
       String url, String version, String name) async {
-    Directory? tempDir = await getTemporaryDirectory();
+    Directory? tempDir = await getApplicationDocumentsDirectory();
     // create a new folder in temp dir
     final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
       ..createSync(recursive: true);
