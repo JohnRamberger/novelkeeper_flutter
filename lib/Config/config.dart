@@ -22,5 +22,7 @@ class NKConfig {
 
   static Future<void> init() async {
     // open the db
+    // this will create the db if it doesn't exist
+    final db = await database();
   }
 }
