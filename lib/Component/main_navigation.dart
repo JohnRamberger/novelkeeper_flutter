@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:novelkeeper_flutter/View/library.view.dart';
+import 'package:novelkeeper_flutter/View/settings.view.dart';
 import 'package:novelkeeper_flutter/View/sources.view.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -23,6 +24,8 @@ class _MainNavigationState extends State<MainNavigation> {
               icon: Icon(Icons.local_library), label: "Library"),
           BottomNavigationBarItem(
               icon: Icon(Icons.south_america), label: "Sources"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: "Settings"),
         ],
         onTap: (newIndex) {
           setState(() {
@@ -44,6 +47,10 @@ class _MainNavigationState extends State<MainNavigation> {
         return AppBar(
           title: const Text("Sources"),
         );
+      case 2:
+        return AppBar(
+          title: const Text("Settings"),
+        );
       default:
         return AppBar(
           title: const Text("NovelKeeper"),
@@ -58,7 +65,7 @@ class _MainNavigationState extends State<MainNavigation> {
       case 1:
         return const SourcesView();
       case 2:
-        return Container();
+        return const SettingsView();
       case 3:
         return Container();
       default:
