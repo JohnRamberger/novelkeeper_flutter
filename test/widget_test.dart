@@ -13,6 +13,8 @@ import 'package:novelkeeper_flutter/app.dart';
 void main() {
   testWidgets('MyApp renders', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MyApp(
+      checkForUpdate: false,
+    ));
   });
 }

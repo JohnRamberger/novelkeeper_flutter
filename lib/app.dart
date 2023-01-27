@@ -14,10 +14,15 @@ import 'package:novelkeeper_flutter/Component/main_navigation.dart';
 import 'package:novelkeeper_flutter/utils/Updater/updater.view.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({this.checkForUpdate = true, super.key});
+
+  final bool checkForUpdate;
 
   @override
   Widget build(BuildContext context) {
-    return const UpdateChecker(startView: MainNavigation());
+    return UpdateChecker(
+      startView: const MainNavigation(),
+      checkForUpdate: checkForUpdate,
+    );
   }
 }

@@ -10,9 +10,11 @@ import 'package:novelkeeper_flutter/utils/Updater/updater.dart';
 import '../../Config/config.dart';
 
 class UpdateChecker extends StatefulWidget {
-  const UpdateChecker({required this.startView, super.key});
+  const UpdateChecker(
+      {required this.startView, this.checkForUpdate = true, super.key});
 
   final Widget startView;
+  final bool checkForUpdate;
 
   @override
   State<UpdateChecker> createState() => _UpdateCheckerState();
@@ -27,11 +29,13 @@ class _UpdateCheckerState extends State<UpdateChecker> {
   void initState() {
     super.initState();
 
-    _bindBackgroundIsolate();
+    if (widget.checkForUpdate) {
+      _bindBackgroundIsolate();
 
-    FlutterDownloader.registerCallback(downloadCallback);
+      FlutterDownloader.registerCallback(downloadCallback);
 
-    initPlatformState();
+      initPlatformState();
+    }
   }
 
   @override
