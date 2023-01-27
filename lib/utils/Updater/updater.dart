@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app_installer/app_installer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import "package:http/http.dart";
@@ -51,7 +52,8 @@ class Updater {
 
   static Future<void> downloadRelease(
       String url, String version, String name) async {
-    Directory? tempDir = await getApplicationDocumentsDirectory();
+    Directory tempDir = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
+                    BuildConfig.APPLICATION_ID + ".provider", file);
     // create a new folder in temp dir
     final nk = await getExternalStorageDirectory();
     // final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
@@ -62,27 +64,31 @@ class Updater {
         headers: {}, // optional: header send with url (auth token etc)
         savedDir: nk!.path,
         showNotification:
-            false, // show download progress in status bar (for Android)
+            true, // show download progress in status bar (for Android)
         openFileFromNotification:
-            false, // click on notification to open downloaded file (for Android)
+            true, // click on notification to open downloaded file (for Android)
         saveInPublicStorage: true);
   }
 
-  // static Future<void> installRelease(String taskId) async {
-  //   print("ready to install");
-  //   // final tasks = await FlutterDownloader.loadTasksWithRawQuery(
-  //   //     query: 'SELECT * FROM task WHERE status=3');
+  static Future<void> installRelease(String taskId) async {
+    print("ready to install");
+    final tasks = await FlutterDownloader.loadTasksWithRawQuery(
+        query: 'SELECT * FROM task WHERE task_id = \'$taskId\'');
 
-  //   // if (tasks == null || tasks.isEmpty) {
-  //   //   return;
-  //   // }
+    if (tasks == null || tasks.isEmpty) {
+      return;
+    }
 
-  //   // final task = tasks.first;
-  //   // final apkPath = "${task.savedDir}/${task.filename ?? ""}";
-  //   await FlutterDownloader.open(taskId: taskId);
+    final task = tasks.first;
+    final apkPath = "${task.savedDir}/${task.filename ?? ""}";
 
-  //   return;
-  // }
+    print(apkPath);
+
+    await AppInstaller.installApk(apkPath);
+    // await FlutterDownloader.open(taskId: taskId);
+
+    return;
+  }
 }
 
 int getExtendedVersionNumber(String version) {

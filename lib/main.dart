@@ -11,5 +11,5 @@ void main() async {
       title: NKConfig.appName,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: MyApp()));
+      home: const MyApp()));
 }
