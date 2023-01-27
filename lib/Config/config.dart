@@ -5,9 +5,10 @@ import 'package:sqflite/sqflite.dart';
 class NKConfig {
   static const String appName = "Novel Keeper";
   static var scrapeClient = ScrapeClient();
-  static const String dbPath = "novelkeeper.db";
+  static late String dbPath;
 
   static Future<void> init() async {
     // init stuff
+    dbPath = join(await getDatabasesPath(), "novelkeeper.db");
   }
 }
