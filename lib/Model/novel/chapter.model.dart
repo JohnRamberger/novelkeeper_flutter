@@ -58,6 +58,7 @@ const String columnIndex = 'index';
 const String columnIsRead = 'isRead';
 const String columnIsBookmarked = 'isBookmarked';
 const String columnIsDownloaded = 'isDownloaded';
+const int dbVersion = 1;
 
 class ChapterProvider {
   late Database _db;
@@ -79,6 +80,7 @@ class ChapterProvider {
             $columnIsDownloaded         BOOLEAN  DEFAULT false
           )
           ''');
+      version = dbVersion;
     });
   }
 
