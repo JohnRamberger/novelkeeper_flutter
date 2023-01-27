@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/shallow.novel.model.dart';
@@ -23,6 +24,9 @@ class NovelDetailsViewModel extends ChangeNotifier {
 
   /// The chapters in reverse order
   List<Chapter> chaptersRev = [];
+
+  /// The cached chapters
+  final List<Chapter> _cachedChapters = [];
 
   /// The shallow novel that is passed to this view
   final ShallowNovel shallowNovel;
@@ -49,7 +53,26 @@ class NovelDetailsViewModel extends ChangeNotifier {
         isLoading = false;
         if (_mounted) notifyListeners();
 
+        // cache novel chapters
+        ChapterProvider chapterProvider = ChapterProvider();
+        chapterProvider.open(NKConfig.dbPath);
+
+        for (var chapter in novel.chapters) {
+          // check if chapter is already cached
+          Chapter cached =
+              await chapterProvider.getChapterByUrl(chapter.sourceUrl);
+          if (cached.id != null && cached.id! > 0) {
+            // chapter already cached - update
+            chapter.id = cached.id;
+            await chapterProvider.update(chapter);
+            _cachedChapters.add(chapter);
+          } else {
+            // chapter not cached - insert
+            _cachedChapters.add(await chapterProvider.insert(chapter));
+          }
+        }
         // TODO: cache novel
+        // add list of cached chapters' ids to novel
 
         break;
       default:
