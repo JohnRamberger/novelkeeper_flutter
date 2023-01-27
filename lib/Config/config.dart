@@ -7,22 +7,7 @@ class NKConfig {
   static var scrapeClient = ScrapeClient();
   static const String dbPath = "novelkeeper.db";
 
-  static Future<Database> database() async {
-    return openDatabase(
-      join(await getDatabasesPath(), dbPath),
-      onCreate: (db, version) {
-        // initialize the db on first creation
-        return db.execute(
-          'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
-        );
-      },
-      version: 1,
-    );
-  }
-
   static Future<void> init() async {
-    // open the db
-    // this will create the db if it doesn't exist
-    final db = await database();
+    // init stuff
   }
 }

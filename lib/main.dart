@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
 
-  // open the db
+  // init stuff
   await NKConfig.init();
 
   runApp(MaterialApp(
