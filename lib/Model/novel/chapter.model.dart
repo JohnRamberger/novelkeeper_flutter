@@ -60,9 +60,13 @@ const String columnIsBookmarked = 'isBookmarked';
 const String columnIsDownloaded = 'isDownloaded';
 
 class ChapterProvider {
-  late Database db;
+  late Database _db;
+
+  /// Open the database
+  /// @param path the path to the database
+  /// @return the database
   Future open(String path) async {
-    db = await openDatabase(path, version: 1,
+    _db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
           CREATE TABLE $tableName (
@@ -78,13 +82,19 @@ class ChapterProvider {
     });
   }
 
+  /// Insert a chapter into the database
+  /// @param chapter the chapter to insert
+  /// @return the inserted chapter
   Future<Chapter> insert(Chapter chapter) async {
-    chapter.id = await db.insert(tableName, chapter.toMap());
+    chapter.id = await _db.insert(tableName, chapter.toMap());
     return chapter;
   }
 
+  /// Get a chapter by id
+  /// @param id the id of the chapter to get
+  /// @return the chapter with the given id
   Future<Chapter> getChapter(int id) async {
-    List<Map> maps = await db.query(tableName,
+    List<Map> maps = await _db.query(tableName,
         columns: [
           columnId,
           columnTitle,
@@ -112,9 +122,12 @@ class ChapterProvider {
     );
   }
 
+  /// Get a chapter by sourceUrl
+  /// @param sourceUrl the sourceUrl of the chapter to get
+  /// @return the chapter with the given sourceUrl
   Future<Chapter> getChapterByUrl(String sourceUrl) async {
     // get the chapter by sourceUrl
-    List<Map> maps = await db.query(tableName,
+    List<Map> maps = await _db.query(tableName,
         columns: [
           columnId,
           columnTitle,
@@ -142,14 +155,21 @@ class ChapterProvider {
     );
   }
 
+  /// Delete a chapter by id
+  /// @param id the id of the chapter to delete
+  /// @return the number of rows deleted
   Future<int> delete(int id) async {
-    return await db.delete(tableName, where: '$columnId = ?', whereArgs: [id]);
+    return await _db.delete(tableName, where: '$columnId = ?', whereArgs: [id]);
   }
 
+  /// Update a chapter
+  /// @param chapter the chapter to update
+  /// @return the number of rows updated
   Future<int> update(Chapter chapter) async {
-    return await db.update(tableName, chapter.toMap(),
+    return await _db.update(tableName, chapter.toMap(),
         where: '$columnId = ?', whereArgs: [chapter.id]);
   }
 
-  Future close() async => db.close();
+  /// Close the database
+  Future close() async => _db.close();
 }
