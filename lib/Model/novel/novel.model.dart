@@ -120,6 +120,7 @@ class NovelProvider {
             $columnStatus text not null,
             $columnAuthors text not null,
             $columnAlternateTitles text,
+            $columnChapters text,
             $columnGenres text,
             $columnSourceName text not null,
             $columnIsFavorite boolean not null)
@@ -147,6 +148,7 @@ class NovelProvider {
           columnStatus,
           columnAuthors,
           columnAlternateTitles,
+          columnChapters,
           columnGenres,
           columnSourceName,
           columnIsFavorite
@@ -182,6 +184,7 @@ class NovelProvider {
           columnStatus,
           columnAuthors,
           columnAlternateTitles,
+          columnChapters,
           columnGenres,
           columnSourceName,
           columnIsFavorite
@@ -212,6 +215,7 @@ class NovelProvider {
           columnStatus,
           columnAuthors,
           columnAlternateTitles,
+          columnChapters,
           columnGenres,
           columnSourceName,
           columnIsFavorite
