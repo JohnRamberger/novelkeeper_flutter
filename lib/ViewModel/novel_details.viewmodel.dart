@@ -51,6 +51,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
       print("novel is cached");
       // novel is cached
       novel = cachedNovel;
+      _novelFound(novel, cache: false);
       // check for cached chapters
     } else {
       print("novel is not cached");
@@ -84,14 +85,15 @@ class NovelDetailsViewModel extends ChangeNotifier {
     _mounted = false;
   }
 
-  Future _novelFound(Novel novel) async {
+  Future _novelFound(Novel novel, {bool cache = true}) async {
     this.novel = novel;
     chaptersRev = novel.chapters.reversed.toList();
     isLoading = false;
     if (_mounted) notifyListeners();
 
     // cache novel
-    _cacheNovel(novel);
+
+    if (cache) _cacheNovel(novel);
   }
 
   Future _cacheNovel(Novel novel) async {
