@@ -43,6 +43,11 @@ class Updater {
 
     return {"update": false};
   }
+
+  static Future<void> downloadAndUpdate(String url) async {
+    
+
+  }
 }
 
 int getExtendedVersionNumber(String version) {
