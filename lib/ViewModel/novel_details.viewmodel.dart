@@ -45,8 +45,6 @@ class NovelDetailsViewModel extends ChangeNotifier {
     Novel cachedNovel =
         await novelProvider.getNovelBySourceUrl(shallowNovel.sourceUrl);
 
-    print(cachedNovel);
-
     if (cachedNovel.id != null && cachedNovel.id! > 0) {
       print("novel is cached");
       // novel is cached
