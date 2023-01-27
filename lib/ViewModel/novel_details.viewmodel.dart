@@ -48,32 +48,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
     switch (getBaseUrl(shallowNovel.sourceUrl)) {
       case "https://novelfull.com":
         var novel = await NovelFull().getNovelDetailsJob(shallowNovel);
-        this.novel = novel;
-        chaptersRev = novel.chapters.reversed.toList();
-        isLoading = false;
-        if (_mounted) notifyListeners();
-
-        // cache novel chapters
-        ChapterProvider chapterProvider = ChapterProvider();
-        await chapterProvider.open(NKConfig.dbPath);
-
-        for (var chapter in novel.chapters) {
-          // check if chapter is already cached
-          Chapter cached =
-              await chapterProvider.getChapterByUrl(chapter.sourceUrl);
-          if (cached.id != null && cached.id! > 0) {
-            // chapter already cached - update
-            chapter.id = cached.id;
-            await chapterProvider.update(chapter);
-            _cachedChapters.add(chapter);
-          } else {
-            // chapter not cached - insert
-            _cachedChapters.add(await chapterProvider.insert(chapter));
-          }
-        }
-        // TODO: cache novel
-        // add list of cached chapters' ids to novel
-
+        _novelFound(novel);
         break;
       default:
         throw Exception("Unknown source");
@@ -84,5 +59,37 @@ class NovelDetailsViewModel extends ChangeNotifier {
   void dispose() {
     super.dispose();
     _mounted = false;
+  }
+
+  Future _novelFound(Novel novel) async {
+    this.novel = novel;
+    chaptersRev = novel.chapters.reversed.toList();
+    isLoading = false;
+    if (_mounted) notifyListeners();
+
+    // cache novel
+    _cacheNovel(novel);
+  }
+
+  Future _cacheNovel(Novel novel) async {
+    // cache novel chapters
+    ChapterProvider chapterProvider = ChapterProvider();
+    await chapterProvider.open(NKConfig.dbPath);
+
+    for (var chapter in novel.chapters) {
+      // check if chapter is already cached
+      Chapter cached = await chapterProvider.getChapterByUrl(chapter.sourceUrl);
+      if (cached.id != null && cached.id! > 0) {
+        // chapter already cached - update
+        chapter.id = cached.id;
+        await chapterProvider.update(chapter);
+        _cachedChapters.add(chapter);
+      } else {
+        // chapter not cached - insert
+        _cachedChapters.add(await chapterProvider.insert(chapter));
+      }
+    }
+    // TODO: cache novel
+    // add list of cached chapters' ids to novel
   }
 }

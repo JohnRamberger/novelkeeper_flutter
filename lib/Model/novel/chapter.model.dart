@@ -1,5 +1,16 @@
 import 'package:sqflite/sqflite.dart';
 
+// define sqlite table and column names
+const String tableName = 'chapter';
+const String columnId = '_id';
+const String columnTitle = 'title';
+const String columnSourceUrl = 'sourceUrl';
+const String columnIndex = 'listIndex';
+const String columnIsRead = 'isRead';
+const String columnIsBookmarked = 'isBookmarked';
+const String columnIsDownloaded = 'isDownloaded';
+const int dbVersion = 1;
+
 class Chapter {
   int? id;
   String title, sourceUrl;
@@ -28,13 +39,13 @@ class Chapter {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'title': title,
-      'sourceUrl': sourceUrl,
-      'index': index,
-      'isRead': isRead == true ? 1 : 0,
-      'bookmarked': isBookmarked == true ? 1 : 0,
-      'isDownloaded': isDownloaded == true ? 1 : 0,
+      columnId: id,
+      columnTitle: title,
+      columnSourceUrl: sourceUrl,
+      columnIndex: index,
+      columnIsRead: isRead == true ? 1 : 0,
+      columnIsBookmarked: isBookmarked == true ? 1 : 0,
+      columnIsDownloaded: isDownloaded == true ? 1 : 0,
     };
   }
 }
@@ -48,17 +59,6 @@ class Chapter {
 // 	isBookmarked         BOOLEAN  DEFAULT false   ,
 // 	isDownloaded         BOOLEAN  DEFAULT false
 //  );
-
-// define sqlite table and column names
-const String tableName = 'chapter';
-const String columnId = '_id';
-const String columnTitle = 'title';
-const String columnSourceUrl = 'sourceUrl';
-const String columnIndex = 'index';
-const String columnIsRead = 'isRead';
-const String columnIsBookmarked = 'isBookmarked';
-const String columnIsDownloaded = 'isDownloaded';
-const int dbVersion = 1;
 
 class ChapterProvider {
   late Database _db;
