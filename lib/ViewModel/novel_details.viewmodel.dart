@@ -89,7 +89,20 @@ class NovelDetailsViewModel extends ChangeNotifier {
         _cachedChapters.add(await chapterProvider.insert(chapter));
       }
     }
-    // TODO: cache novel
+    // cache novel
     // add list of cached chapters' ids to novel
+
+    NovelProvider novelProvider = NovelProvider();
+    await novelProvider.open(NKConfig.dbPath);
+    // check if novel is already cached
+    Novel cached = await novelProvider.getNovelBySourceUrl(novel.sourceUrl);
+    if (cached.id != null && cached.id! > 0) {
+      // novel already cached - update
+      novel.id = cached.id;
+      await novelProvider.update(novel);
+    } else {
+      // novel not cached - insert
+      await novelProvider.insert(novel);
+    }
   }
 }
