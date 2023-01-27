@@ -93,8 +93,8 @@ jobs:
       
       - name: "Rename release files to include versions"
         run: |
-          mv build/app/outputs/bundle/release/app-release.aab build/app/outputs/bundle/release/app-release-${{ steps.tag_version.outputs.tag }}.aab
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-release-${{ steps.tag_version.outputs.tag }}.apk
+          mv build/app/outputs/bundle/release/app-release.aab build/app/outputs/bundle/release/app-release-${{ steps.vars.outputs.tag }}.aab
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-release-${{ steps.vars.outputs.tag }}.apk
 
       # create the new release tag
       - name: automatic release
@@ -105,5 +105,5 @@ jobs:
           prerelease: false
           files: |
             LICENSE.txt
-            build/app/outputs/bundle/release/app-release-${{ steps.tag_version.outputs.tag }}.aab
-            build/app/outputs/flutter-apk/app-release-${{ steps.tag_version.outputs.tag }}.apk
+            build/app/outputs/bundle/release/app-release-${{ steps.vars.outputs.tag }}.aab
+            build/app/outputs/flutter-apk/app-release-${{ steps.vars.outputs.tag }}.apk
