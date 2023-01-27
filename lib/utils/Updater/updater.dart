@@ -35,7 +35,8 @@ class Updater {
             return {
               "update": true,
               "assetUrl": asset['browser_download_url'],
-              "version": map['tag_name']
+              "version": map['tag_name'],
+              "name": asset['name']
             };
           }
         }
@@ -47,17 +48,22 @@ class Updater {
     return {"update": false};
   }
 
-  static Future<void> downloadAndUpdate(String url) async {
-    Directory tempDir = await getTemporaryDirectory();
+  static Future<void> downloadAndUpdate(
+      String url, String version, String name) async {
+    Directory? tempDir = await getTemporaryDirectory();
+    // create a new folder in temp dir
+    final Directory nk = Directory('${tempDir.path}/novelkeeper/$version')
+      ..createSync(recursive: true);
+
     final taskId = await FlutterDownloader.enqueue(
-      url: url,
-      headers: {}, // optional: header send with url (auth token etc)
-      savedDir: tempDir.path,
-      showNotification:
-          false, // show download progress in status bar (for Android)
-      openFileFromNotification:
-          false, // click on notification to open downloaded file (for Android)
-    );
+        url: url,
+        headers: {}, // optional: header send with url (auth token etc)
+        savedDir: nk.path,
+        showNotification:
+            false, // show download progress in status bar (for Android)
+        openFileFromNotification:
+            false, // click on notification to open downloaded file (for Android)
+        saveInPublicStorage: true);
   }
 }
 
