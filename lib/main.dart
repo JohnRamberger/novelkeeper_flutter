@@ -1,3 +1,6 @@
+import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
+import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
+
 import 'Config/config.dart';
 
 import "package:flutter/material.dart";
@@ -15,6 +18,8 @@ void main() async {
   // init Hive
   await Hive.initFlutter();
   // init hive adapters
+  Hive.registerAdapter(NovelAdapter());
+  Hive.registerAdapter(ChapterAdapter());
 
   runApp(MaterialApp(
       title: NKConfig.appName,
