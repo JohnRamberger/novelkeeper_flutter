@@ -45,6 +45,9 @@ dependencies:
   permission_handler: ^8.1.4+2
   app_installer: ^1.1.0
   android_path_provider: ^0.3.0
+  sqflite: ^2.2.4+1
+  sqflite_migration: ^0.3.0
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:
