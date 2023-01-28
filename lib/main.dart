@@ -21,6 +21,9 @@ void main() async {
   Hive.registerAdapter(NovelAdapter());
   Hive.registerAdapter(ChapterAdapter());
 
+  // open hive boxes
+  await Hive.openBox<Novel>(NKConfig.boxNovelCache);
+
   runApp(MaterialApp(
       title: NKConfig.appName,
       theme: ThemeData.light(),

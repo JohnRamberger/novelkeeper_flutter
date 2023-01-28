@@ -36,7 +36,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
   }
 
   Future _checkForCacheOrLoad() async {
-    var cacheBox = await Hive.openBox<Novel>(NKConfig.boxNovelCache);
+    var cacheBox =  Hive.box<Novel>(NKConfig.boxNovelCache);
     Novel? cached = cacheBox.get(shallowNovel.sourceUrl);
 
     if (cached != null) {
@@ -89,7 +89,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
 
   Future _cacheNovel(Novel novel) async {
     // cache novel chapters
-    var cacheBox = await Hive.openBox<Novel>(NKConfig.boxNovelCache);
+    var cacheBox = Hive.box<Novel>(NKConfig.boxNovelCache);
     cacheBox.put(novel.sourceUrl, novel);
   }
 }
