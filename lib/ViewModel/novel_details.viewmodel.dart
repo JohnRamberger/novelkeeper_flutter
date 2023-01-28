@@ -28,9 +28,6 @@ class NovelDetailsViewModel extends ChangeNotifier {
   /// The chapters in reverse order
   List<Chapter> chaptersRev = [];
 
-  /// The cached chapters
-  final List<Chapter> _cachedChapters = [];
-
   /// The shallow novel that is passed to this view
   final ShallowNovel shallowNovel;
 
