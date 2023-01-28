@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
@@ -38,6 +39,20 @@ class NovelDetailsViewModel extends ChangeNotifier {
   }
 
   Future _checkForCacheOrLoad() async {
+    var cacheBox = Hive.box<Novel>(NKConfig.boxNovelCache);
+    Novel? _cached = cacheBox.get(shallowNovel.sourceUrl);
+
+    if (_cached != null) {
+      // novel is cached
+      print("novel is cached");
+      novel = _cached;
+      _novelFound(novel, cache: false);
+    } else {
+      // novel is not cached
+      print("novel is not cached");
+      _loadNovel();
+    }
+
     // check for cached novel
     // NovelProvider novelProvider = NovelProvider();
     // await novelProvider.open(NKConfig.dbPath);
@@ -96,6 +111,12 @@ class NovelDetailsViewModel extends ChangeNotifier {
 
   Future _cacheNovel(Novel novel) async {
     // cache novel chapters
+    var cacheBox = Hive.box<Novel>(NKConfig.boxNovelCache);
+
+    cacheBox.put(novel.sourceUrl, novel);
+
+    print("cached novel: ${novel.title} (${novel.sourceUrl})");
+
     // ChapterProvider chapterProvider = ChapterProvider();
     // await chapterProvider.open();
 
