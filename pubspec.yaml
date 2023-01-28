@@ -42,13 +42,13 @@ dependencies:
   version: ^3.0.0
   flutter_downloader: ^1.10.1
   path_provider: ^2.0.12
-  permission_handler: ^8.1.4+2
+  # permission_handler: ^8.1.4+2
   app_installer: ^1.1.0
   android_path_provider: ^0.3.0
-  sqflite: ^2.2.4+1
-  sqflite_migration: ^0.3.0
+  # sqflite: ^2.2.4+1
+  # sqflite_migration: ^0.3.0
   path: ^1.8.2
-  json_cache: ^1.5.0
+  # json_cache: ^1.5.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 

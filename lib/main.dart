@@ -10,7 +10,7 @@ void main() async {
   await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
 
   // init stuff
-  await NKConfig.init();
+  // await NKConfig.init();
 
   // init Hive
   await Hive.initFlutter();
