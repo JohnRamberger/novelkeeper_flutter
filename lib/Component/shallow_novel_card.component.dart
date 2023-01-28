@@ -1,4 +1,5 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
@@ -24,10 +25,24 @@ class ShallowNovelCard extends StatelessWidget {
                 Row(children: [
                   Expanded(
                       child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image(
-                        image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
-                  ))
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                              imageUrl: novel.coverUrl,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                );
+                              },
+                              errorWidget: (context, url, error) => const Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
+                              imageBuilder: (context, imageProvider) => Image(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ))))
                 ]),
                 Container(
                   padding: const EdgeInsets.only(top: 8),

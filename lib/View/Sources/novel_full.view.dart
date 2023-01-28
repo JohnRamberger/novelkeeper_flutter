@@ -22,7 +22,7 @@ class _NovelfullViewState extends State<NovelfullView> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      _loadSearch("the");
+      _loadSearch("a");
     }
 
     return Scaffold(

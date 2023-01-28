@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:novelkeeper_flutter/Component/genre.component.dart';
 import 'package:novelkeeper_flutter/Component/text_closed.component.dart';
@@ -25,8 +26,23 @@ class NovelDetails extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image(
-                      image: NetworkImage(novel.coverUrl), fit: BoxFit.fill),
+                  child: CachedNetworkImage(
+                      imageUrl: novel.coverUrl,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress),
+                        );
+                      },
+                      errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          ),
+                      imageBuilder: (context, imageProvider) => Image(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          )),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
