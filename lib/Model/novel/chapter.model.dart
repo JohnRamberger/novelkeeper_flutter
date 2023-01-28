@@ -1,5 +1,4 @@
 class Chapter {
-  int? id;
   String title, sourceUrl;
   int index;
   bool isRead;
@@ -12,8 +11,7 @@ class Chapter {
       required this.index,
       this.isRead = false,
       this.isBookmarked = false,
-      this.isDownloaded = false,
-      this.id});
+      this.isDownloaded = false});
 
   Chapter.withContent({
     required this.title,
@@ -23,6 +21,5 @@ class Chapter {
     this.isRead = false,
     this.isBookmarked = false,
     this.isDownloaded = false,
-    this.id,
   });
 }
