@@ -8,6 +8,8 @@ class NKConfig {
   static const String appName = "Novel Keeper";
   static var scrapeClient = ScrapeClient();
 
+  static String boxNovelCache = "novel_cache";
+
   static Future<void> init() async {
     // init stuff
   }
