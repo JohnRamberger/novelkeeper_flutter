@@ -1,8 +1,9 @@
+import 'Config/config.dart';
+
 import "package:flutter/material.dart";
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:novelkeeper_flutter/app.dart';
-
-import 'Config/config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +11,10 @@ void main() async {
 
   // init stuff
   await NKConfig.init();
+
+  // init Hive
+  await Hive.initFlutter();
+  // init hive adapters
 
   runApp(MaterialApp(
       title: NKConfig.appName,

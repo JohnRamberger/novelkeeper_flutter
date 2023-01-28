@@ -4,7 +4,6 @@
 // import 'package:novelkeeper_flutter/utils/Scraping/scrape.dart';
 // import 'package:novelkeeper_flutter/Model/scrape_job.model.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class LibraryView extends StatefulWidget {
   const LibraryView({super.key});
