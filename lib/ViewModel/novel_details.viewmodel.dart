@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:novelkeeper_flutter/Config/config.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
@@ -27,9 +28,6 @@ class NovelDetailsViewModel extends ChangeNotifier {
   /// The chapters in reverse order
   List<Chapter> chaptersRev = [];
 
-  /// The cached chapters
-  final List<Chapter> _cachedChapters = [];
-
   /// The shallow novel that is passed to this view
   final ShallowNovel shallowNovel;
 
@@ -38,22 +36,17 @@ class NovelDetailsViewModel extends ChangeNotifier {
   }
 
   Future _checkForCacheOrLoad() async {
-    // check for cached novel
-    NovelProvider novelProvider = NovelProvider();
-    await novelProvider.open(NKConfig.dbPath);
+    var cacheBox =  Hive.box<Novel>(NKConfig.boxNovelCache);
+    Novel? cached = cacheBox.get(shallowNovel.sourceUrl);
 
-    Novel cachedNovel =
-        await novelProvider.getNovelBySourceUrl(shallowNovel.sourceUrl);
-
-    if (cachedNovel.id != null && cachedNovel.id! > 0) {
-      print("novel is cached");
+    if (cached != null) {
       // novel is cached
-      novel = cachedNovel;
+      // print("novel is cached");
+      novel = cached;
       _novelFound(novel, cache: false);
-      // check for cached chapters
     } else {
-      print("novel is not cached");
       // novel is not cached
+      // print("novel is not cached");
       _loadNovel();
     }
   }
@@ -96,36 +89,7 @@ class NovelDetailsViewModel extends ChangeNotifier {
 
   Future _cacheNovel(Novel novel) async {
     // cache novel chapters
-    ChapterProvider chapterProvider = ChapterProvider();
-    await chapterProvider.open();
-
-    for (var chapter in novel.chapters) {
-      // check if chapter is already cached
-      Chapter cached = await chapterProvider.getChapterByUrl(chapter.sourceUrl);
-      if (cached.id != null && cached.id! > 0) {
-        // chapter already cached - update
-        chapter.id = cached.id;
-        await chapterProvider.update(chapter);
-        _cachedChapters.add(chapter);
-      } else {
-        // chapter not cached - insert
-        _cachedChapters.add(await chapterProvider.insert(chapter));
-      }
-    }
-    // cache novel
-    // add list of cached chapters' ids to novel
-
-    NovelProvider novelProvider = NovelProvider();
-    await novelProvider.open(NKConfig.dbPath);
-    // check if novel is already cached
-    Novel cached = await novelProvider.getNovelBySourceUrl(novel.sourceUrl);
-    if (cached.id != null && cached.id! > 0) {
-      // novel already cached - update
-      novel.id = cached.id;
-      await novelProvider.update(novel);
-    } else {
-      // novel not cached - insert
-      await novelProvider.insert(novel);
-    }
+    var cacheBox = Hive.box<Novel>(NKConfig.boxNovelCache);
+    cacheBox.put(novel.sourceUrl, novel);
   }
 }

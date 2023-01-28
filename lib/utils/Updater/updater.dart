@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:app_installer/app_installer.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import "package:http/http.dart";
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:version/version.dart';
 import 'package:android_path_provider/android_path_provider.dart';
 
