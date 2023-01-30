@@ -64,9 +64,10 @@ class _MainNavigationState extends State<MainNavigation> {
                   ));
           }
         },
-        backgroundColor:
-            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        
         splashRadius: 20,
+        splashColor: Theme.of(context).colorScheme.secondary,
         height: 80,
         gapLocation: GapLocation.none,
         leftCornerRadius: 32,
@@ -80,7 +81,6 @@ class _MainNavigationState extends State<MainNavigation> {
       ),
     );
   }
-
 
   // List<PersistentBottomNavBarItem> _navBarItems() {
   //   return [
