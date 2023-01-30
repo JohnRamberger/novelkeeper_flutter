@@ -18,7 +18,8 @@ void main() async {
   // init stuff
   // await NKConfig.init();
 
-  await FlutterStatusbarcolor.setNavigationBarColor(Colors.red);
+  await FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
+  await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
 
   // init Hive
   await Hive.initFlutter();
