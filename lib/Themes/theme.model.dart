@@ -1,36 +1,44 @@
 import 'package:flutter/material.dart';
 
 class NovelKeeperTheme {
-  MaterialColor? primary;
+  MaterialColor primary;
   Color? accent;
   Color? background;
+  Color? foreground;
+  Color? backgroundSecondary;
 
   NovelKeeperTheme({
     required this.primary,
-    required this.accent,
-    required this.background,
+    this.accent,
+    this.background,
+    this.foreground,
+    this.backgroundSecondary,
   });
 
   ThemeData light() {
     return ThemeData(
-        primarySwatch: primary!,
-        accentColor: accent!,
+        primarySwatch: primary,
+        accentColor: accent ?? primary.shade400,
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
         backgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-            backgroundColor: background!, shadowColor: Colors.transparent),
+        shadowColor: Colors.transparent,
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            shadowColor: Colors.transparent,
+            foregroundColor: Colors.black),
         bottomNavigationBarTheme:
             const BottomNavigationBarThemeData(backgroundColor: Colors.white));
   }
 
   ThemeData dark() {
     return ThemeData(
-        primarySwatch: primary!,
-        accentColor: accent!,
+        primarySwatch: primary,
+        accentColor: accent ?? primary.shade400,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: background!,
         backgroundColor: background!,
+        shadowColor: Colors.transparent,
         appBarTheme: AppBarTheme(
             backgroundColor: background!, shadowColor: Colors.transparent),
         bottomNavigationBarTheme:
