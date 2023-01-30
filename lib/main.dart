@@ -5,6 +5,7 @@ import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
 // import 'package:novelkeeper_flutter/Themes/themes.dart';
 
 import 'Config/config.dart';
+import 'package:flutter/services.dart';
 
 import "package:flutter/material.dart";
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -18,8 +19,11 @@ void main() async {
   // init stuff
   // await NKConfig.init();
 
-  await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
+  // await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
   await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
+  
 
   // init Hive
   await Hive.initFlutter();
