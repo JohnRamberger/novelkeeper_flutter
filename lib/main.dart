@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
 
@@ -24,9 +25,30 @@ void main() async {
   // open hive boxes
   await Hive.openBox<Novel>(NKConfig.boxNovelCache);
 
-  runApp(MaterialApp(
-      title: NKConfig.appName,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: const MyApp()));
+  runApp(AdaptiveTheme(
+      light: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.purple,
+      ),
+      dark: ThemeData(
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: const Color.fromRGBO(20, 31, 24, 1),
+          backgroundColor: const Color.fromRGBO(20, 31, 24, 1),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Color.fromRGBO(20, 31, 24, 1),
+              shadowColor: Colors.transparent),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: Color.fromRGBO(20, 31, 24, 1)),
+          primarySwatch: Colors.purple,
+          accentColor: Colors.purple),
+      initial: AdaptiveThemeMode.system,
+      builder: (theme, darkTheme) => MaterialApp(
+          title: NKConfig.appName,
+          theme: theme,
+          darkTheme: darkTheme,
+          // primary: Color.fromRGBO(124, 96, 128, 1),
+          // secondary: Color.fromRGBO(162, 136, 166, 1),
+          // background: Color.fromRGBO(28, 29, 33, 1))),
+          home: const MyApp())));
 }
