@@ -18,7 +18,7 @@ void main() async {
   // init stuff
   // await NKConfig.init();
 
-  await FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
+  await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
   await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
 
   // init Hive
@@ -31,13 +31,10 @@ void main() async {
   await Hive.openBox<Novel>(NKConfig.boxNovelCache);
 
   runApp(AdaptiveTheme(
-      light: ThemeData.light(),
-      dark: ThemeData.dark(),
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
       initial: AdaptiveThemeMode.system,
       builder: (theme, darkTheme) => MaterialApp(
-          // builder: (context, child) {
-          //   return ScrollConfiguration(behavior: null, child: child);
-          // },
           title: NKConfig.appName,
           theme: theme,
           darkTheme: darkTheme,
