@@ -1,7 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
-import 'package:novelkeeper_flutter/Themes/themes.dart';
+// import 'package:novelkeeper_flutter/Themes/themes.dart';
 
 import 'Config/config.dart';
 
@@ -16,6 +17,8 @@ void main() async {
 
   // init stuff
   // await NKConfig.init();
+
+  await FlutterStatusbarcolor.setNavigationBarColor(Colors.red);
 
   // init Hive
   await Hive.initFlutter();
