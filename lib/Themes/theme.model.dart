@@ -36,13 +36,14 @@ class NovelKeeperTheme {
         primarySwatch: primary,
         accentColor: accent ?? primary.shade400,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: background!,
-        backgroundColor: background!,
+        scaffoldBackgroundColor: background,
+        backgroundColor: background,
         shadowColor: Colors.transparent,
         appBarTheme: AppBarTheme(
-            backgroundColor: background!, shadowColor: Colors.transparent),
-        bottomNavigationBarTheme:
-            BottomNavigationBarThemeData(backgroundColor: background!));
+            backgroundColor: background, shadowColor: Colors.transparent),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor:
+                backgroundSecondary ?? background ?? Colors.transparent));
   }
 }
 
