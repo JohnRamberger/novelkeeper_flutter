@@ -35,6 +35,9 @@ void main() async {
       dark: ThemeData.dark(),
       initial: AdaptiveThemeMode.system,
       builder: (theme, darkTheme) => MaterialApp(
+          // builder: (context, child) {
+          //   return ScrollConfiguration(behavior: null, child: child);
+          // },
           title: NKConfig.appName,
           theme: theme,
           darkTheme: darkTheme,
