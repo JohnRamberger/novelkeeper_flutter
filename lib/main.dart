@@ -1,7 +1,11 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:novelkeeper_flutter/Model/novel/chapter.model.dart';
 import 'package:novelkeeper_flutter/Model/novel/novel.model.dart';
+// import 'package:novelkeeper_flutter/Themes/themes.dart';
 
 import 'Config/config.dart';
+import 'package:flutter/services.dart';
 
 import "package:flutter/material.dart";
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -15,6 +19,12 @@ void main() async {
   // init stuff
   // await NKConfig.init();
 
+  // await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
+  await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
+  
+
   // init Hive
   await Hive.initFlutter();
   // init hive adapters
@@ -24,9 +34,16 @@ void main() async {
   // open hive boxes
   await Hive.openBox<Novel>(NKConfig.boxNovelCache);
 
-  runApp(MaterialApp(
-      title: NKConfig.appName,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: const MyApp()));
+  runApp(AdaptiveTheme(
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
+      initial: AdaptiveThemeMode.system,
+      builder: (theme, darkTheme) => MaterialApp(
+          title: NKConfig.appName,
+          theme: theme,
+          darkTheme: darkTheme,
+          // primary: Color.fromRGBO(124, 96, 128, 1),
+          // secondary: Color.fromRGBO(162, 136, 166, 1),
+          // background: Color.fromRGBO(28, 29, 33, 1))),
+          home: const MyApp())));
 }

@@ -3,6 +3,8 @@ import 'package:novelkeeper_flutter/View/library.view.dart';
 import 'package:novelkeeper_flutter/View/settings.view.dart';
 import 'package:novelkeeper_flutter/View/sources.view.dart';
 
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 
@@ -11,6 +13,8 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
+  // int _selectedIndex = 0;
+
   int _selectedIndex = 0;
 
   @override
@@ -18,25 +22,87 @@ class _MainNavigationState extends State<MainNavigation> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_library), label: "Library"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.south_america), label: "Sources"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
-        ],
-        onTap: (newIndex) {
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        // icons: const [
+        //   Icons.local_library,
+        //   Icons.south_america,
+        //   Icons.settings,
+        // ],
+        itemCount: 3,
+        tabBuilder: (index, isActive) {
+          var color =
+              isActive ? Theme.of(context).colorScheme.primary : Colors.grey;
+
+          switch (index) {
+            case 0:
+              return Tooltip(
+                  message: "Library",
+                  child: Icon(
+                    Icons.local_library,
+                    color: color,
+                  ));
+            case 1:
+              return Tooltip(
+                  message: "Sources",
+                  child: Icon(
+                    Icons.south_america,
+                    color: color,
+                  ));
+            case 2:
+              return Tooltip(
+                  message: "Settings",
+                  child: Icon(
+                    Icons.settings,
+                    color: color,
+                  ));
+            default:
+              return Tooltip(
+                  message: "Library",
+                  child: Icon(
+                    Icons.local_library,
+                    color: color,
+                  ));
+          }
+        },
+        backgroundColor: Theme.of(context).colorScheme.background,
+        
+        splashRadius: 20,
+        splashColor: Theme.of(context).colorScheme.secondary,
+        height: 80,
+        gapLocation: GapLocation.none,
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        activeIndex: _selectedIndex,
+        onTap: (index) {
           setState(() {
-            _selectedIndex = newIndex;
+            _selectedIndex = index;
           });
         },
-        currentIndex: _selectedIndex,
       ),
     );
   }
 
+  // List<PersistentBottomNavBarItem> _navBarItems() {
+  //   return [
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.local_library),
+  //       title: ("Library"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.south_america),
+  //       title: ("Sources"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.settings),
+  //       title: ("Settings"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //   ];
   _buildAppBar() {
     switch (_selectedIndex) {
       case 0:
@@ -73,3 +139,24 @@ class _MainNavigationState extends State<MainNavigation> {
     }
   }
 }
+
+// BottomNavigationBar(
+//       items: const [
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.local_library), label: "Library"),
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.south_america), label: "Sources"),
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.settings), label: "Settings"),
+//       ],
+//       onTap: (newIndex) {
+//         setState(() {
+//           _selectedIndex = newIndex;
+//         });
+//       },
+//       currentIndex: _selectedIndex,
+//     ),
+
+
+
+

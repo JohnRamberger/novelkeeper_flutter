@@ -20,6 +20,9 @@ class _LibraryViewState extends State<LibraryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text("hello"));
+    return Column(children: [
+      Text("hello"),
+      ElevatedButton(onPressed: () {}, child: const Text("asdasd"))
+    ]);
   }
 }
