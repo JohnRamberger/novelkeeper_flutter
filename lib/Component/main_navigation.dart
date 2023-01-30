@@ -81,13 +81,6 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 
-  List<Widget> _buildScreens() {
-    return [
-      const LibraryView(),
-      const SourcesView(),
-      const SettingsView(),
-    ];
-  }
 
   // List<PersistentBottomNavBarItem> _navBarItems() {
   //   return [
