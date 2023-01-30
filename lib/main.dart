@@ -27,8 +27,8 @@ void main() async {
   await Hive.openBox<Novel>(NKConfig.boxNovelCache);
 
   runApp(AdaptiveTheme(
-      light: defaultTheme.light(),
-      dark: defaultTheme.dark(),
+      light: ThemeData.light(),
+      dark: ThemeData.dark(),
       initial: AdaptiveThemeMode.system,
       builder: (theme, darkTheme) => MaterialApp(
           title: NKConfig.appName,

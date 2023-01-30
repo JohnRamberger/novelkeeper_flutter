@@ -3,7 +3,7 @@ import 'package:novelkeeper_flutter/View/library.view.dart';
 import 'package:novelkeeper_flutter/View/settings.view.dart';
 import 'package:novelkeeper_flutter/View/sources.view.dart';
 
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -15,46 +15,70 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   // int _selectedIndex = 0;
 
-  late PersistentTabController _controller;
   int _selectedIndex = 0;
-  late bool _hideNavBar;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: _selectedIndex);
-    _hideNavBar = false;
-
-    _controller.addListener(() {
-      setState(() {
-        _selectedIndex = _controller.index;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _buildAppBar(),
-        body: PersistentTabView(
-          context,
-          screens: _buildScreens(),
-          items: _navBarItems(),
-          controller: _controller,
-          hideNavigationBar: _hideNavBar,
-          confineInSafeArea: true,
-          // backgroundColor: Theme.of(context).backgroundColor,
-          decoration: const NavBarDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-          ),
-          handleAndroidBackButtonPress: true,
-          stateManagement: true,
-          // padding: const NavBarPadding.only(right: 8, left: 8, bottom: 64, top: 64),
-          navBarStyle: NavBarStyle.style11,
-        ));
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        // icons: const [
+        //   Icons.local_library,
+        //   Icons.south_america,
+        //   Icons.settings,
+        // ],
+        itemCount: 3,
+        tabBuilder: (index, isActive) {
+          var color =
+              isActive ? Theme.of(context).colorScheme.primary : Colors.grey;
+
+          switch (index) {
+            case 0:
+              return Tooltip(
+                  message: "Library",
+                  child: Icon(
+                    Icons.local_library,
+                    color: color,
+                  ));
+            case 1:
+              return Tooltip(
+                  message: "Sources",
+                  child: Icon(
+                    Icons.south_america,
+                    color: color,
+                  ));
+            case 2:
+              return Tooltip(
+                  message: "Settings",
+                  child: Icon(
+                    Icons.settings,
+                    color: color,
+                  ));
+            default:
+              return Tooltip(
+                  message: "Library",
+                  child: Icon(
+                    Icons.local_library,
+                    color: color,
+                  ));
+          }
+        },
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        splashRadius: 20,
+        height: 80,
+        gapLocation: GapLocation.none,
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        activeIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
   }
 
   List<Widget> _buildScreens() {
@@ -65,46 +89,27 @@ class _MainNavigationState extends State<MainNavigation> {
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.local_library),
-        title: ("Library"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.south_america),
-        title: ("Sources"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.settings),
-        title: ("Settings"),
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: Colors.grey,
-      ),
-    ];
-  }
-
-  // BottomNavigationBar(
-  //       items: const [
-  //         BottomNavigationBarItem(
-  //             icon: Icon(Icons.local_library), label: "Library"),
-  //         BottomNavigationBarItem(
-  //             icon: Icon(Icons.south_america), label: "Sources"),
-  //         BottomNavigationBarItem(
-  //             icon: Icon(Icons.settings), label: "Settings"),
-  //       ],
-  //       onTap: (newIndex) {
-  //         setState(() {
-  //           _selectedIndex = newIndex;
-  //         });
-  //       },
-  //       currentIndex: _selectedIndex,
+  // List<PersistentBottomNavBarItem> _navBarItems() {
+  //   return [
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.local_library),
+  //       title: ("Library"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
   //     ),
-
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.south_america),
+  //       title: ("Sources"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(Icons.settings),
+  //       title: ("Settings"),
+  //       activeColorPrimary: Theme.of(context).primaryColor,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //   ];
   _buildAppBar() {
     switch (_selectedIndex) {
       case 0:
@@ -125,20 +130,40 @@ class _MainNavigationState extends State<MainNavigation> {
         );
     }
   }
+
+  _buildBody() {
+    switch (_selectedIndex) {
+      case 0:
+        return const LibraryView();
+      case 1:
+        return const SourcesView();
+      case 2:
+        return const SettingsView();
+      case 3:
+        return Container();
+      default:
+        return Container();
+    }
+  }
 }
 
-//   _buildBody() {
-//     switch (_selectedIndex) {
-//       case 0:
-//         return const LibraryView();
-//       case 1:
-//         return const SourcesView();
-//       case 2:
-//         return const SettingsView();
-//       case 3:
-//         return Container();
-//       default:
-//         return Container();
-//     }
-//   }
-// }
+// BottomNavigationBar(
+//       items: const [
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.local_library), label: "Library"),
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.south_america), label: "Sources"),
+//         BottomNavigationBarItem(
+//             icon: Icon(Icons.settings), label: "Settings"),
+//       ],
+//       onTap: (newIndex) {
+//         setState(() {
+//           _selectedIndex = newIndex;
+//         });
+//       },
+//       currentIndex: _selectedIndex,
+//     ),
+
+
+
+
